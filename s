@@ -111,18 +111,18 @@ buildFunc () {
 #================================================================
 instFunc () {
     printf "DBG backup configuration files...\n"
-    chkCmd "cp inst/conf/cubrid.conf            inst/conf/cubrid.conf.bak"
-    chkCmd "cp inst/conf/cubrid_broker.conf     inst/conf/cubrid_broker.conf.bak"
-    chkCmd "cp inst/conf/cubrid_ha.conf         inst/conf/cubrid_ha.conf.bak"
+    runCmd "cp inst/conf/cubrid.conf            ."
+    runCmd "cp inst/conf/cubrid_broker.conf     ."
+    runCmd "cp inst/conf/cubrid_ha.conf         ."
 
     chkCmd "pushd build"
     chkCmd "cmake --build . --target install"
     chkCmd "popd"
 
     printf "DBG restore configuration files...\n"
-    chkCmd "mv inst/conf/cubrid.conf.bak        inst/conf/cubrid.conf"
-    chkCmd "mv inst/conf/cubrid_broker.conf.bak inst/conf/cubrid_broker.conf"
-    chkCmd "mv inst/conf/cubrid_ha.conf.bak     inst/conf/cubrid_ha.conf"
+    runCmd "mv cubrid.conf        inst/conf/"
+    runCmd "mv cubrid_broker.conf inst/conf/"
+    runCmd "mv cubrid_ha.conf     inst/conf/"
 }
 
 #================================================================
