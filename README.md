@@ -3,19 +3,16 @@ cubrid helper commands for Linux bash; works also on Windows via gitBash or Linu
 
 1. choose a base folder
 ```
-  mkdir ~/cubrid
-  cd ~/cubrid
+    mkdir ~/cubrid
+    cd ~/cubrid
 ```
-
-
 2. clone this repo in the previously selected folder
 ```
-  git clone https://github.com/bsolomenco/cubrid-cmd
+    git clone https://github.com/bsolomenco/cubrid-cmd
 ```
-
-3. make command(s) avalable system-wide
+3. make command executable and avalable system-wide
 ```
-  chmode +x ~/cubrid/cubrid-cmd/cubridcmd.sh
+    chmode +x ~/cubrid/cubrid-cmd/cubridcmd.sh
 ```
   3.1 add to PATH
 ```
