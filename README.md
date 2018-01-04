@@ -1,5 +1,5 @@
-# cubrid-cmd
-cubrid helper commands for Linux bash; works also on Windows via gitBash or Linux subsystem
+# cubrid-cmd (cubrid helper commands for bash)
+works also on Windows via gitBash or Linux subsystem
 
 1. choose a base folder
 ```
