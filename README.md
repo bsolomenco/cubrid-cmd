@@ -20,10 +20,10 @@ PATH += ~/cubrid/cubrid-cmd
   * 3.2 make aliase(s) in ~/.bashrc
 ```
 alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
-alias clone='~/cubrid/cubrid-cmd/cubridcmd.sh clone'
-alias gen='~/cubrid/cubrid-cmd/cubridcmd.sh gen'
-alias build='~/cubrid/cubrid-cmd/cubridcmd.sh build'
-alias inst='~/cubrid/cubrid-cmd/cubridcmd.sh inst'
+alias clone='cubridcmd clone'
+alias gen='cubridcmd gen'
+alias build='cubridcmd build'
+alias inst='cubridcmd inst'
 ```
 4. use it
 ```
