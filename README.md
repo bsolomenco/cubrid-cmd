@@ -14,11 +14,11 @@ git clone https://github.com/bsolomenco/cubrid-cmd .
 ```
 chmode +x ~/cubrid/cubrid-cmd/cubridcmd.sh
 ```
-  3.1 add to PATH
+  * 3.1. add to PATH
 ```
 PATH += ~/cubrid/cubrid-cmd
 ```
-  3.2 make aliase(s) in ~/.bashrc
+  * 3.2 make aliase(s) in ~/.bashrc
 ```
 alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
 alias clone='~/cubrid/cubrid-cmd/cubridcmd.sh clone'
