@@ -7,11 +7,10 @@ helpFunc () {
     printf ".\\s [command [args]]\n"
     printf "    clone [repository]\n"
     printf "        cub  = cubrid                                 ==> repo\n"
-    printf "        tt   = cubrid testtools, -internal   ==> tt, tti\n"
+    printf "        tt   = cubrid testtools, -internal            ==> tt, tti\n"
     printf "        tc   = cubrid-testcase, -private, -private-ex ==> tc, tcp, tcpe\n"
-    
-    printf "    %-10s %s\n" "cloneCub"  "clone CUBRID ==> \"$scriptDir/repo\""
-    printf "    %-10s %s\n" "genCub"    "generate cubrid ==> \"$scriptDir/build\""
+    printf "    gen   generate|configure cubrid                   ==> build\n"
+
     printf "    %-10s %s\n" "buildCub"  "build cubrid"
     printf "    %-10s %s\n" "instCub"   "install cubrid ==> \"$scriptDir/inst\" (backup conf/*.conf before and restore after)"
     printf "    %-10s %s\n" "genDb"     "generate testdb ==> \"$scriptDir/db\""
@@ -80,25 +79,25 @@ cloneFunc () {
 }
 
 #================================================================
-cloneCubFunc () {
-    runCmd "rm -rf $scriptDir/repo"
-    chkCmd "git clone https://github.com/bsolomenco/cubrid $scriptDir/repo"
-    chkCmd "pushd $scriptDir/repo"
-    chkCmd "git remote add upstream https://github.com/CUBRID/cubrid"
-    chkCmd "git remote -v"
-    chkCmd "git fetch"
-    chkCmd "git fetch upstream"
-    chkCmd "git merge upstream/develop"
-    chkCmd "popd"
-}
-
-#================================================================
-genCubFunc () {
-    runCmd "rm -rf $scriptDir/build"
-    chkCmd "mkdir $scriptDir/build"
-    chkCmd "pushd $scriptDir/build"
-    local generator='"Unix Makefiles"'
-    chkCmd "cmake -G $generator -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../inst -DUNIT_TESTS=ON $scriptDir/repo"
+genFunc () {
+    local generator=${1:-'"Unix Makefiles"'}
+    case ${OSTYPE} in
+        linux*) #assume Linux
+            printf "DBG platform/OS: ${OSTYPE}\n"
+            local generator='"Unix Makefiles"'
+            ;;
+        msys*) #assume mingw on Windows
+            printf "DBG platform/OS: ${OSTYPE}\n"
+            local generator='"Visual Studio 15 2017 Win64"'
+            ;;
+        *)
+            printf "ERR unknown platform/OS: ${OSTYPE}\n"
+            ;;
+    esac
+    runCmd "rm -rf build"
+    chkCmd "mkdir build"
+    chkCmd "pushd build"
+    chkCmd "cmake -G $generator -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../inst -DUNIT_TESTS=ON ../repo"
     chkCmd "popd"
 }
 
