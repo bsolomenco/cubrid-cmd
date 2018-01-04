@@ -1,10 +1,15 @@
 #================================================================
-scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-printf "DBG scriptDir = $scriptDir \n"
+#scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#printf "DBG scriptDir = $scriptDir \n"
 
 #================================================================
 helpFunc () {
     printf ".\\s [command [args]]\n"
+    printf "    clone [repository]\n"
+    printf "        cub  = cubrid                                 ==> repo\n"
+    printf "        tt   = cubrid testtools, -internal   ==> tt, tti\n"
+    printf "        tc   = cubrid-testcase, -private, -private-ex ==> tc, tcp, tcpe\n"
+    
     printf "    %-10s %s\n" "cloneCub"  "clone CUBRID ==> \"$scriptDir/repo\""
     printf "    %-10s %s\n" "genCub"    "generate cubrid ==> \"$scriptDir/build\""
     printf "    %-10s %s\n" "buildCub"  "build cubrid"
@@ -36,6 +41,42 @@ chkCmd () {
         echo "ERR $rc $@"
         exit $rc
     fi
+}
+
+#================================================================
+cloneFunc () {
+    #1st arg is the repository alias
+    local repo=${1:-cub} #default repo alias is cub
+    case ${repo} in
+        cub)
+            runCmd "rm -rf repo"
+            chkCmd "git clone https://github.com/bsolomenco/cubrid repo"
+            chkCmd "pushd repo"
+            chkCmd "git remote add upstream https://github.com/CUBRID/cubrid"
+            chkCmd "git remote -v"
+            chkCmd "git fetch"
+            chkCmd "git fetch upstream"
+            chkCmd "git merge upstream/develop"
+            chkCmd "popd"
+            ;;
+        tt)
+            runCmd "rm -rf tt"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools tt"
+            runCmd "rm -rf tti"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal tti"
+            ;;
+        tc)
+            runCmd "rm -rf tc"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases tc"
+            runCmd "rm -rf tcp"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private tcp"
+            runCmd "rm -rf tcpe"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex tcpe"
+            ;;
+        *)
+            printf "ERR unknown repository: ${repo}\nSYNTAX: clone <repository>\n"
+            ;;
+    esac
 }
 
 #================================================================
@@ -123,11 +164,11 @@ vgFunc () {
 dt0=$(date +"%Y-%m-%d %H:%M:%S")
 
 #consider 1st arg as command and execute it with th rest of args
-cmd=${1:-help}
+cmd=${1:-help} #default command is help
 eval "${cmd}""Func" "${@:2}"
 
 dt1=$(date +"%Y-%m-%d %H:%M:%S")
 
 printf "================================================================ SUMMARY\n"
-printf "DBG scriptDir = $scriptDir \n"
+#printf "DBG scriptDir = $scriptDir \n"
 printf "TIM %s\nTIM %s\n" "$dt0" "$dt1"
