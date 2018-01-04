@@ -8,12 +8,12 @@
 helpFunc () {
     printf ".\\s [command [args]]\n"
     printf "    clone [repository]\n"
-    printf "        cub  = cubrid                                 ==> repo\n"
-    printf "        tt   = cubrid testtools, -internal            ==> tt, tti\n"
-    printf "        tc   = cubrid-testcase, -private, -private-ex ==> tc, tcp, tcpe\n"
-    printf "    gen   = generate|configure cubrid                 ==> build\n"
+    printf "        cub         = cubrid                         ==> repo\n"
+    printf "        tt [prefix] = cubrid testtools, -internal    ==> tt, tti\n"
+    printf "        tc [prefix] = cubrid-testcase, -private, -ex ==> tc, tcp, tcpe\n"
+    printf "    gen   = generate|configure cubrid                ==> build\n"
     printf "    build = build cubrid"
-    printf "    inst  = install cubrid                            ==> inst (backup conf/*.conf before and restore after)\n"
+    printf "    inst  = install cubrid                           ==> inst (backup conf/*.conf before and restore after)\n"
 
     printf "    %-10s %s\n" "genDb"     "generate testdb ==> \"$scriptDir/db\""
     printf "    %-10s %s\n" "cloneTst"  "clone test tools and cases:"
@@ -61,18 +61,20 @@ cloneFunc () {
             chkCmd "popd"
             ;;
         tt)
-            runCmd "rm -rf tt"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools tt"
-            runCmd "rm -rf tti"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal tti"
+            local prefix="${2:-cubrid-testtools}"
+            runCmd "rm -rf ${prefix}"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}"
+            runCmd "rm -rf ${prefix}-internal"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}-internal"
             ;;
         tc)
-            runCmd "rm -rf tc"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases tc"
+            local prefix="${2:-cubrid-testcases}"
+            runCmd "rm -rf ${prefix}"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}"
             runCmd "rm -rf tcp"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private tcp"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}-private"
             runCmd "rm -rf tcpe"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex tcpe"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex ${prefix}-private-ex"
             ;;
         *)
             printf "ERR unknown repository: ${repo}\nSYNTAX: clone <repository>\n"
