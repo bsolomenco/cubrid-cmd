@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #================================================================
 #scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #printf "DBG scriptDir = $scriptDir \n"
@@ -55,7 +57,7 @@ cloneFunc () {
             chkCmd "git remote -v"
             chkCmd "git fetch"
             chkCmd "git fetch upstream"
-            chkCmd "git merge upstream/develop"
+            #chkCmd "git merge upstream/develop"
             chkCmd "popd"
             ;;
         tt)
