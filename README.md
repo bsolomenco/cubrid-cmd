@@ -8,21 +8,45 @@ works also on Windows via gitBash or Linux subsystem
 ```
 2. clone this repo in the previously selected folder
 ```
-    git clone https://github.com/bsolomenco/cubrid-cmd
+    git clone https://github.com/bsolomenco/cubrid-cmd .
 ```
 3. make command executable and avalable system-wide
 ```
     chmode +x ~/cubrid/cubrid-cmd/cubridcmd.sh
 ```
-  3.1 add to PATH
+    3.1 add to PATH
 ```
     PATH += ~/cubrid/cubrid-cmd
 ```
-  3.2 make aliase(s) in ~/.bashrc
+    3.2 make aliase(s) in ~/.bashrc
 ```
     alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
     alias clone='~/cubrid/cubrid-cmd/cubridcmd.sh clone'
     alias gen='~/cubrid/cubrid-cmd/cubridcmd.sh gen'
     alias build='~/cubrid/cubrid-cmd/cubridcmd.sh build'
     alias inst='~/cubrid/cubrid-cmd/cubridcmd.sh inst'
+```
+4. use it
+```
+    cubridcmd           #show available commands
+    clone [repo=cub]    #clone a cubrid repo; default cub
+    gen                 #generate project for current platform/OS (Linux: "Unix Makefiles", Windows: "Visual Studio 2017 Win64")
+    build               #build generated project
+    inst                #install
+    
+    clone tt [prefix]   #clone testtools, testtools-internal
+    clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
+```
+5. folder structure
+```
+    cubrid
+        cubrid-cmd
+        repo
+        build
+        inst
+        cubrid-testtools
+        cubrid-testtools-internal
+        cubrid-testcases
+        cubrid-testcases-private
+        cubrid-testcases-private-ex
 ```
