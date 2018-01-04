@@ -4,11 +4,10 @@ works also on Windows via gitBash or Linux subsystem
 1. choose a base folder
 ```
 mkdir ~/cubrid
-cd ~/cubrid
 ```
-2. clone this repo in the previously selected folder
+2. clone this repo in the previously created folder
 ```
-git clone https://github.com/bsolomenco/cubrid-cmd .
+git clone https://github.com/bsolomenco/cubrid-cmd ~/cubrid
 ```
 3. make command executable and avalable system-wide
 ```
@@ -28,12 +27,12 @@ alias inst='~/cubrid/cubrid-cmd/cubridcmd.sh inst'
 ```
 4. use it
 ```
+cd ~/cubrid
 cubridcmd           #show available commands
 clone [cub]         #clone a cubrid repo; default cub
 gen                 #generate project for current platform/OS (Linux: "Unix Makefiles", Windows: "Visual Studio 2017 Win64")
 build               #build generated project
 inst                #install
-    
 clone tt [prefix]   #clone testtools, testtools-internal
 clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
 ```
