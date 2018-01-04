@@ -9,10 +9,10 @@ helpFunc () {
     printf "        cub  = cubrid                                 ==> repo\n"
     printf "        tt   = cubrid testtools, -internal            ==> tt, tti\n"
     printf "        tc   = cubrid-testcase, -private, -private-ex ==> tc, tcp, tcpe\n"
-    printf "    gen   generate|configure cubrid                   ==> build\n"
+    printf "    gen   = generate|configure cubrid                 ==> build\n"
+    printf "    build = build cubrid"
+    printf "    inst  = install cubrid                            ==> inst (backup conf/*.conf before and restore after)\n"
 
-    printf "    %-10s %s\n" "buildCub"  "build cubrid"
-    printf "    %-10s %s\n" "instCub"   "install cubrid ==> \"$scriptDir/inst\" (backup conf/*.conf before and restore after)"
     printf "    %-10s %s\n" "genDb"     "generate testdb ==> \"$scriptDir/db\""
     printf "    %-10s %s\n" "cloneTst"  "clone test tools and cases:"
     printf "    %-10s %s\n" "    cubrid-testtools             ==> \"$scriptDir/tt\""
@@ -102,27 +102,27 @@ genFunc () {
 }
 
 #================================================================
-buildCubFunc () {
-    chkCmd "pushd $scriptDir/build"
+buildFunc () {
+    chkCmd "pushd build"
     chkCmd "cmake --build ."
     chkCmd "popd"
 }
 
 #================================================================
-instCubFunc () {
+instFunc () {
     printf "DBG backup configuration files...\n"
-    chkCmd "cp $CUBRID/conf/cubrid.conf            $CUBRID/conf/cubrid.conf.bak"
-    chkCmd "cp $CUBRID/conf/cubrid_broker.conf     $CUBRID/conf/cubrid_broker.conf.bak"
-    chkCmd "cp $CUBRID/conf/cubrid_ha.conf         $CUBRID/conf/cubrid_ha.conf.bak"
+    chkCmd "cp inst/conf/cubrid.conf            inst/conf/cubrid.conf.bak"
+    chkCmd "cp inst/conf/cubrid_broker.conf     inst/conf/cubrid_broker.conf.bak"
+    chkCmd "cp inst/conf/cubrid_ha.conf         inst/conf/cubrid_ha.conf.bak"
 
-    chkCmd "pushd $scriptDir/build"
+    chkCmd "pushd build"
     chkCmd "cmake --build . --target install"
     chkCmd "popd"
 
     printf "DBG restore configuration files...\n"
-    chkCmd "mv $CUBRID/conf/cubrid.conf.bak        $CUBRID/conf/cubrid.conf"
-    chkCmd "mv $CUBRID/conf/cubrid_broker.conf.bak $CUBRID/conf/cubrid_broker.conf"
-    chkCmd "mv $CUBRID/conf/cubrid_ha.conf.bak     $CUBRID/conf/cubrid_ha.conf"
+    chkCmd "mv inst/conf/cubrid.conf.bak        inst/conf/cubrid.conf"
+    chkCmd "mv inst/conf/cubrid_broker.conf.bak inst/conf/cubrid_broker.conf"
+    chkCmd "mv inst/conf/cubrid_ha.conf.bak     inst/conf/cubrid_ha.conf"
 }
 
 #================================================================
