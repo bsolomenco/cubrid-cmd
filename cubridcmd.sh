@@ -8,14 +8,14 @@
 helpFunc () {
     printf ".\\s [command [args]]\n"
     printf "    clone [repository]\n"
-    printf "        cub         = cubrid                         ==> repo\n"
-    printf "        tt [prefix] = cubrid testtools, -internal    ==> tt, tti\n"
-    printf "        tc [prefix] = cubrid-testcase, -private, -ex ==> tc, tcp, tcpe\n"
-    printf "    gen   = generate|configure cubrid                ==> build\n"
-    printf "    build = build cubrid"
-    printf "    inst  = install cubrid                           ==> inst (backup conf/*.conf before and restore after)\n"
+    printf "        cub         = cubrid                            ==> repo\n"
+    printf "        tt [prefix] = cubrid testtools, -internal       ==> tt, tti\n"
+    printf "        tc [prefix] = cubrid-testcase, -private, -ex    ==> tc, tcp, tcpe\n"
+    printf "    gen                     = generate|configure cubrid ==> build\n"
+    printf "    build                   = build cubrid\n"
+    printf "    inst                    = install cubrid            ==> inst (backup inst/conf/*.conf before and restore after)\n"
+    printf "    genDb [database=testdb] = cubrid createdb testdb    ==> db\n"
 
-    printf "    %-10s %s\n" "genDb"     "generate testdb ==> \"$scriptDir/db\""
     printf "    %-10s %s\n" "cloneTst"  "clone test tools and cases:"
     printf "    %-10s %s\n" "    cubrid-testtools             ==> \"$scriptDir/tt\""
     printf "    %-10s %s\n" "    cubrid-testtools-internal    ==> \"$scriptDir/tt-internal\""
@@ -131,15 +131,16 @@ instFunc () {
 
 #================================================================
 genDbFunc () {
-    runCmd "rm -rf $scriptDir/db"
-    chkCmd "mkdir $scriptDir/db"
-    chkCmd "pushd $scriptDir/db"
-    runCmd "cubrid server stop testdb"
-    runCmd "cubrid deletedb testdb"
-    chkCmd "cubrid createdb testdb en_US"
-    chkCmd "cubrid server start testdb"
+    local db=${1:-testdb}
+    runCmd "rm -rf db"
+    runCmd "mkdir db"
+    chkCmd "pushd db"
+    runCmd "cubrid server stop ${db}"
+    runCmd "cubrid deletedb ${db}"
+    chkCmd "cubrid createdb ${db} en_US"
+    chkCmd "cubrid server start ${db}"
     chkCmd "cubrid service status"
-    chkCmd "cubrid server stop testdb"
+    chkCmd "cubrid server stop ${db}"
     #csql -S testdb
     chkCmd "cubrid service status"
     chkCmd "popd"
