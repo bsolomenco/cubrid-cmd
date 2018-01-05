@@ -24,6 +24,7 @@ alias clone='cubridcmd clone'
 alias gen='cubridcmd gen'
 alias build='cubridcmd build'
 alias inst='cubridcmd inst'
+alias genDb='cubridcmd genDb'
 ```
 4. use it
 ```
@@ -33,6 +34,7 @@ clone [cub]         #clone a cubrid repo; default cub
 gen                 #generate project for current platform/OS (Linux: "Unix Makefiles", Windows: "Visual Studio 2017 Win64")
 build               #build generated project
 inst                #install
+genDb               #generate database (default testdb)
 clone tt [prefix]   #clone testtools, testtools-internal
 clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
 ```
@@ -43,6 +45,7 @@ cubrid
     repo
     build
     inst
+    db
     cubrid-testtools
     cubrid-testtools-internal
     cubrid-testcases
