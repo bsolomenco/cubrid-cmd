@@ -9,18 +9,13 @@ helpFunc () {
     printf ".\\s [command [args]]\n"
     printf "    clone [repository]\n"
     printf "        cub         = cubrid                            ==> repo\n"
-    printf "        tt [prefix] = cubrid testtools, -internal       ==> tt, tti\n"
-    printf "        tc [prefix] = cubrid-testcase, -private, -ex    ==> tc, tcp, tcpe\n"
+    printf "        tt [prefix] = cubrid testtools, -internal\n"
+    printf "        tc [prefix] = cubrid-testcase, -private, -ex\n"
     printf "    gen                     = generate|configure cubrid ==> build\n"
     printf "    build                   = build cubrid\n"
     printf "    inst                    = install cubrid            ==> inst (backup inst/conf/*.conf before and restore after)\n"
     printf "    genDb [database=testdb] = cubrid createdb testdb    ==> db\n"
 
-    printf "    %-10s %s\n" "cloneTst"  "clone test tools and cases:"
-    printf "    %-10s %s\n" "    cubrid-testtools             ==> \"$scriptDir/tt\""
-    printf "    %-10s %s\n" "    cubrid-testtools-internal    ==> \"$scriptDir/tt-internal\""
-    printf "    %-10s %s\n" "    cubrid-testtestcases         ==> \"$scriptDir/tc\""
-    printf "    %-10s %s\n" "    cubrid-testtestcases-private ==> \"$scriptDir/tc-private\""
     printf "    %-10s %s\n" "vg"        "valgrind ..."
 }
 
@@ -71,9 +66,9 @@ cloneFunc () {
             local prefix="${2:-cubrid-testcases}"
             runCmd "rm -rf ${prefix}"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}"
-            runCmd "rm -rf tcp"
+            runCmd "rm -rf ${prefix}=private"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}-private"
-            runCmd "rm -rf tcpe"
+            runCmd "rm -rf ${prefix}-private-ex"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex ${prefix}-private-ex"
             ;;
         *)
@@ -144,18 +139,6 @@ genDbFunc () {
     #csql -S testdb
     chkCmd "cubrid service status"
     chkCmd "popd"
-}
-
-#================================================================
-cloneTstFunc () {
-    runCmd "rm -rf $scriptDir/tt"
-    chkCmd "git clone https://github.com/CUBRID/cubrid-testtools $scriptDir/tt"
-    runCmd "rm -rf $scriptDir/tt-internal"
-    chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal $scriptDir/tt-internal"
-    runCmd "rm -rf $scriptDir/tc"
-    chkCmd "git clone https://github.com/CUBRID/cubrid-testcases $scriptDir/tc"
-    runCmd "rm -rf $scriptDir/tc-private"
-    chkCmd "git clone https://github.com/CUBRID/cubrid-testcases $scriptDir/tc-private"
 }
 
 #================================================================
