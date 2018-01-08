@@ -15,7 +15,7 @@ helpFunc () {
     printf "    build                   = build cubrid\n"
     printf "    inst                    = install cubrid            ==> inst (backup inst/conf/*.conf before and restore after)\n"
     printf "    genDb [database=testdb] = cubrid createdb testdb    ==> db\n"
-    printf "    vg              = valgrind ..."
+    printf "    vg              = valgrind ...\n"
 }
 
 #================================================================
