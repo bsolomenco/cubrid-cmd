@@ -9,15 +9,12 @@ mkdir ~/cubrid
 ```
 git clone https://github.com/bsolomenco/cubrid-cmd ~/cubrid
 ```
-3. make command executable and avalable system-wide
-```
-chmode +x ~/cubrid/cubrid-cmd/cubridcmd.sh
-```
+3. make command avalable system-wide (one of the following ways)
   * 3.1. add to PATH
 ```
 PATH += ~/cubrid/cubrid-cmd
 ```
-  * 3.2 make aliase(s) in ~/.bashrc
+  * 3.2 make aliase(s) in ~/.bashrc (name them however you like)
 ```
 alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
 alias clone='cubridcmd clone'
@@ -31,11 +28,12 @@ alias vg='cubridcmd vg'
 ```
 cd ~/cubrid
 cubridcmd           #show available commands
+
 clone [cub]         #clone a cubrid repo; default cub
 gen                 #generate project for current platform/OS (Linux: "Unix Makefiles", Windows: "Visual Studio 2017 Win64")
 build               #build generated project
-inst                #install
-genDb               #generate database (default testdb)
+inst [port]         #install and update ports
+genDb [db=testdb]   #generate database (default testdb)
 clone tt [prefix]   #clone testtools, testtools-internal
 clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
 ```
