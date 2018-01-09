@@ -38,16 +38,42 @@ clone tt [prefix]   #clone testtools, testtools-internal
 clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
 ```
 5. resulting folder structure
-```
-cubrid
-    cubrid-cmd
-    repo
-    build
-    inst
-    db
-    cubrid-testtools
-    cubrid-testtools-internal
-    cubrid-testcases
-    cubrid-testcases-private
-    cubrid-testcases-private-ex
-```
+
+<table>
+  <tr>
+     <th>default</th>
+     <th>custom</th>
+  </tr>
+  <tr>
+     <td>
+       <pre>
+         cubrid
+             cubrid-cmd
+             repo
+             build
+             inst
+             db
+             cubrid-testtools
+             cubrid-testtools-internal
+             cubrid-testcases
+             cubrid-testcases-private
+             cubrid-testcases-private-ex
+       </pre>
+     </td>
+     <td>
+       <pre>
+         cubrid
+             cmd
+             repo
+             build
+             inst
+             db
+             ttools
+             ttools-internal
+             tcases
+             tcases-private
+             tcases-private-ex
+       </pre>
+     </td>
+  </tr>
+</table>
