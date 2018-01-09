@@ -129,12 +129,18 @@ instFunc () {
     chkCmd "cmake --build . --target install"
     chkCmd "popd"
 
-    runCmd sed -i \"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id=1973/}\"         inst/conf/cubrid.conf
-    runCmd sed -i \"/^\[broker\]/        , /\[/{s/^MASTER_SHM_ID[ ]*=[ ]*.*/MASTER_SHM_ID=1973/}\"           inst/conf/cubrid_broker.conf
-    runCmd sed -i \"/^\[%query_editor\]/ , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT=1974/}\"               inst/conf/cubrid_broker.conf
-    runCmd sed -i \"/^\[%query_editor\]/ , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID=1974/}\" inst/conf/cubrid_broker.conf
-    runCmd sed -i \"/^\[%BROKER1\]/      , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT=1975/}\"               inst/conf/cubrid_broker.conf
-    runCmd sed -i \"/^\[%BROKER1\]/      , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID=1975/}\" inst/conf/cubrid_broker.conf
+    local regexp='"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id=1973/}"'
+    runCmd sed -i "${regexp}" inst/conf/cubrid.conf
+    local regexp='"/^\[broker\]/        , /\[/{s/^MASTER_SHM_ID[ ]*=[ ]*.*/MASTER_SHM_ID=1973/}"'
+    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    local regexp='"/^\[%query_editor\]/ , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT=1974/}"'
+    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    local regexp='"/^\[%query_editor\]/ , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID=1974/}"'
+    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    local regexp='"/^\[%BROKER1\]/      , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT=1975/}"'
+    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    local regexp='"/^\[%BROKER1\]/      , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID=1975/}"'
+    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
 
     printf "DBG restore configuration files...\n"
     runCmd "mv cubrid_ha.conf     inst/conf/"
