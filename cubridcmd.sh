@@ -16,7 +16,6 @@ helpFunc () {
     printf "    inst                    = install cubrid, update config files ==> inst\n"
     printf "    genDb [database=testdb] = cubrid createdb testdb    ==> db\n"
     printf "    vg                      = valgrind ..."
-    printf "    ports                   = set ports\n"
 }
 
 #================================================================

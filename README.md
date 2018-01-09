@@ -25,6 +25,7 @@ alias gen='cubridcmd gen'
 alias build='cubridcmd build'
 alias inst='cubridcmd inst'
 alias genDb='cubridcmd genDb'
+alias vg='cubridcmd vg'
 ```
 4. use it
 ```
