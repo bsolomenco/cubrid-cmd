@@ -6,16 +6,17 @@
 
 #================================================================
 helpFunc () {
-    printf ".\\s [command [args]]\n"
-    printf "    clone [repository]\n"
+    printf "./cubridcmd.sh [command [args]]\n"
+    printf "    clone [repository=cub]\n"
     printf "        cub         = cubrid                            ==> repo\n"
-    printf "        tt [prefix] = cubrid testtools, -internal\n"
-    printf "        tc [prefix] = cubrid-testcase, -private, -ex\n"
+    printf "        tt [prefix=cubrid-test] = cubrid -tools, -tools-internal\n"
+    printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
     printf "    gen                     = generate|configure cubrid ==> build\n"
     printf "    build                   = build cubrid\n"
-    printf "    inst                    = install cubrid            ==> inst (backup inst/conf/*.conf before and restore after)\n"
+    printf "    inst                    = install cubrid, update config files ==> inst\n"
     printf "    genDb [database=testdb] = cubrid createdb testdb    ==> db\n"
-    printf "    vg              = valgrind ..."
+    printf "    vg                      = valgrind ..."
+    printf "    ports                   = set ports\n"
 }
 
 #================================================================
@@ -55,20 +56,34 @@ cloneFunc () {
             chkCmd "popd"
             ;;
         tt)
-            local prefix="${2:-cubrid-testtools}"
-            runCmd "rm -rf ${prefix}"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}"
-            runCmd "rm -rf ${prefix}-internal"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}-internal"
+            local prefix="${2:-cubrid-test}"
+            runCmd "rm -rf ${prefix}tools"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}tools"
+            runCmd sed -i -e "s:web_port=.*:web_port=1950:"                                 ${prefix}tools/CTP/conf/webconsole.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/sql:"    ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id=1973:"                     ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID=1973:"                       ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT=1975:"                           ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID=1975:"             ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id=1976:"                             ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/medium:" ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id=1973:"                     ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID=1973:"                       ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT=1975:"                           ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID=1975:"             ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id=1976:"                             ${prefix}tools/CTP/conf/medium.conf
+
+            #runCmd "rm -rf ${prefix}tools-internal"
+            #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
             ;;
         tc)
-            local prefix="${2:-cubrid-testcases}"
-            runCmd "rm -rf ${prefix}"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}"
-            runCmd "rm -rf ${prefix}=private"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}-private"
-            runCmd "rm -rf ${prefix}-private-ex"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex ${prefix}-private-ex"
+            local prefix="${2:-cubrid-test}"
+            runCmd "rm -rf ${prefix}cases"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}cases"
+            runCmd "rm -rf ${prefix}cases-private"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}cases-private"
+            runCmd "rm -rf ${prefix}cases-private-ex"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex ${prefix}cases-private-ex"
             ;;
         *)
             printf "ERR unknown repository: ${repo}\nSYNTAX: clone <repository>\n"
@@ -109,17 +124,20 @@ buildFunc () {
 #================================================================
 instFunc () {
     printf "DBG backup configuration files...\n"
-    runCmd "cp inst/conf/cubrid.conf            ."
-    runCmd "cp inst/conf/cubrid_broker.conf     ."
     runCmd "cp inst/conf/cubrid_ha.conf         ."
 
     chkCmd "pushd build"
     chkCmd "cmake --build . --target install"
     chkCmd "popd"
 
+    runCmd sed -i "/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id=1973/}"         inst/conf/cubrid.conf
+    runCmd sed -i "/^\[broker\]/        , /\[/{s/^MASTER_SHM_ID[ ]*=[ ]*.*/MASTER_SHM_ID=1973/}"           inst/conf/cubrid_broker.conf
+    runCmd sed -i "/^\[%query_editor\]/ , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT=1974/}"               inst/conf/cubrid_broker.conf
+    runCmd sed -i "/^\[%query_editor\]/ , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID=1974/}" inst/conf/cubrid_broker.conf
+    runCmd sed -i "/^\[%BROKER1\]/      , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT=1975/}"               inst/conf/cubrid_broker.conf
+    runCmd sed -i "/^\[%BROKER1\]/      , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID=1975/}" inst/conf/cubrid_broker.conf
+
     printf "DBG restore configuration files...\n"
-    runCmd "mv cubrid.conf        inst/conf/"
-    runCmd "mv cubrid_broker.conf inst/conf/"
     runCmd "mv cubrid_ha.conf     inst/conf/"
 }
 
