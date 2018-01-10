@@ -107,10 +107,11 @@ genFunc () {
             printf "ERR unknown platform/OS: ${OSTYPE}\n"
             ;;
     esac
+    local unitTest=${2:-"OFF"}
     runCmd "rm -rf build"
     chkCmd "mkdir build"
     chkCmd "pushd build"
-    chkCmd "cmake -G ${generator} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${instDir} -DUNIT_TESTS=ON ../repo"
+    chkCmd "cmake -G ${generator} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${instDir} -DUNIT_TESTS=${unitTest} ../repo"
     chkCmd "popd"
 }
 
