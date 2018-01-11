@@ -14,7 +14,7 @@ helpFunc () {
     printf "    gen [instDir=../inst]   = generate|configure cubrid ==> build\n"
     printf "    build                   = build cubrid\n"
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
-    printf "    genDb [database=testdb] = cubrid createdb testdb    ==> db\n"
+    printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    vg                      = valgrind ..."
 }
 
@@ -152,7 +152,7 @@ instFunc () {
 }
 
 #================================================================
-genDbFunc () {
+dbFunc () {
     local db=${1:-testdb}
     runCmd "rm -rf db"
     runCmd "mkdir db"
