@@ -123,6 +123,12 @@ buildFunc () {
 }
 
 #================================================================
+build2Func () {
+    chkCmd "cp build/sa/Debug/cubridsa.dll build/util/Debug/"
+    chkCmd "cp build/sa/Debug/cubridsa.pdb build/util/Debug/"
+}
+
+#================================================================
 instFunc () {
     printf "DBG backup configuration files...\n"
     runCmd "cp inst/conf/cubrid_ha.conf         ."
