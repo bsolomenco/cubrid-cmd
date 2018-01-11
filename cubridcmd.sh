@@ -130,6 +130,10 @@ build2Func () {
 
 #================================================================
 instFunc () {
+    #stop everything before install
+    runCmd "cubrid service stop"
+    runCmd "cubrid server stop testdb"
+
     printf "DBG backup configuration files...\n"
     runCmd "cp inst/conf/cubrid_ha.conf         ."
 
