@@ -15,7 +15,14 @@ git clone https://github.com/bsolomenco/cubrid-cmd ~/cubrid
 PATH += ~/cubrid/cubrid-cmd
 ```
   * 3.2 make aliase(s) in ~/.bashrc (name them however you like)
-```
+<table>
+  <tr>
+     <th>example 1</th>
+     <th>example 2</th>
+  </tr>
+  <tr>
+     <td>
+       <pre>
 alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
 alias clone='cubridcmd clone'
 alias gen='cubridcmd gen'
@@ -23,7 +30,24 @@ alias build='cubridcmd build'
 alias inst='cubridcmd inst'
 alias db='cubridcmd db'
 alias vg='cubridcmd vg'
-```
+       </pre>
+     </td>
+     <td>
+       <pre>
+alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
+alias c='cubridcmd clone'
+alias g='cubridcmd gen'
+alias b='cubridcmd build'
+alias i='cubridcmd inst'
+alias d='cubridcmd db'
+alias v='cubridcmd vg'
+       </pre>
+     </td>
+  </tr>
+</table>
+
+
+
 4. use it
 ```
 cd ~/cubrid
@@ -42,7 +66,7 @@ clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
 <table>
   <tr>
      <th>default</th>
-     <th>custom</th>
+     <th>custom (with prefix="t" instead "cubrid-test")</th>
   </tr>
   <tr>
      <td>
