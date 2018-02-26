@@ -35,7 +35,7 @@ alias vg='cubridcmd vg'
      </td>
      <td>
        <pre>
-alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
+alias cubridcmd='~/cubrid/cmd/cubridcmd.sh'
 alias c='cubridcmd clone'
 alias g='cubridcmd gen'
 alias b='cubridcmd build'
