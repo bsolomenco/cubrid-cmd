@@ -30,6 +30,7 @@ alias build='cubridcmd build'
 alias build2='cubridcmd build2'
 alias inst='cubridcmd inst'
 alias db='cubridcmd db'
+alias test='cubridcmd test'
 alias vg='cubridcmd vg'
        </pre>
      </td>
@@ -42,6 +43,7 @@ alias b='cubridcmd build'
 alias b2='cubridcmd build2'
 alias i='cubridcmd inst'
 alias d='cubridcmd db'
+alias t='cubridcmd test'
 alias v='cubridcmd vg'
        </pre>
      </td>
