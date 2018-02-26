@@ -7,12 +7,12 @@ mkdir ~/cubrid
 ```
 2. clone this repo in the previously created folder
 ```
-git clone https://github.com/bsolomenco/cubrid-cmd ~/cubrid
+git clone https://github.com/bsolomenco/cubrid-cmd ~/cubrid/cmd
 ```
 3. make command avalable system-wide (one of the following ways)
   * 3.1. add to PATH
 ```
-PATH += ~/cubrid/cubrid-cmd
+PATH += ~/cubrid/cmd
 ```
   * 3.2 make aliase(s) in ~/.bashrc (name them however you like)
 <table>
