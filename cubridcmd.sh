@@ -16,7 +16,7 @@ helpFunc () {
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    test [what=sql]         = \n"
-    printf "    vg                      = valgrind ..."
+    printf "    vg                      = valgrind ...\n"
 }
 
 #================================================================
@@ -184,7 +184,7 @@ testFunc () {
     local what=${1:-sql}
     runCmd "rm -rf ctp.out"
     chkCmd "pushd ttools/CTP"
-    runCmd "bin/ctp.sh ${what} -c ./conf/${what}.conf >ctp.out"
+    runCmd "bin/ctp.sh ${what} -c ./conf/${what}.conf >../../ctp.out"
     chkCmd "popd"
 }
 
