@@ -182,9 +182,8 @@ dbFunc () {
 #================================================================
 testFunc () {
     local what=${1:-sql}
-    runCmd "rm -rf ctp.out"
     chkCmd "pushd ttools/CTP"
-    runCmd "bin/ctp.sh ${what} -c ./conf/${what}.conf >../../ctp.out"
+    runCmd "bin/ctp.sh ${what} -c ./conf/${what}.conf"
     chkCmd "popd"
 }
 
