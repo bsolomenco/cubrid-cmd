@@ -23,12 +23,15 @@ PATH += ~/cubrid/cmd
   <tr>
      <td>
        <pre>
+export CUBRIDCMD="/c/cubrid/cmd/cubridcmd.sh"
+
 alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
 alias clone='cubridcmd clone'
 alias gen='cubridcmd gen'
 alias build='cubridcmd build'
 alias build2='cubridcmd build2'
 alias inst='cubridcmd inst'
+alias env="source ${CUBRIDCMD} env"
 alias db='cubridcmd db'
 alias test='cubridcmd test'
 alias vg='cubridcmd vg'
@@ -36,12 +39,15 @@ alias vg='cubridcmd vg'
      </td>
      <td>
        <pre>
-alias cubridcmd='~/cubrid/cmd/cubridcmd.sh'
+export CUBRIDCMD="/c/cubrid/cmd/cubridcmd.sh"
+
+alias cubridcmd='${CUBRIDCMD}'
 alias c='cubridcmd clone'
 alias g='cubridcmd gen'
 alias b='cubridcmd build'
 alias b2='cubridcmd build2'
 alias i='cubridcmd inst'
+alias e="source ${CUBRIDCMD} env"
 alias d='cubridcmd db'
 alias t='cubridcmd test'
 alias v='cubridcmd vg'
