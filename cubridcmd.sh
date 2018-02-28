@@ -160,6 +160,8 @@ instFunc () {
 
     printf "DBG restore configuration files...\n"
     runCmd "mv cubrid_ha.conf     inst/conf/"
+
+    runCmd "export PATH=inst/bin:"${PATH}
 }
 
 #================================================================
