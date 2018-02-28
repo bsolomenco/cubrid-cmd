@@ -196,8 +196,10 @@ envFunc () {
 #================================================================
 testFunc () {
     local what=${1:-sql}
+    local path=`pwd`
+    runCmd sed -i -e "s:scenario=.*:scenario=${path}/tcases/${what}:"    ${path}/ttools/CTP/conf/sql.conf
     chkCmd "pushd ttools/CTP"
-    runCmd "bin/ctp.sh ${what} -c ./conf/${what}.conf"
+    runCmd "bin/ctp.sh sql -c ./conf/sql.conf"
     chkCmd "popd"
 }
 
