@@ -14,6 +14,7 @@ helpFunc () {
     printf "    gen [instDir=../inst]   = generate|configure cubrid ==> build\n"
     printf "    build                   = build cubrid\n"
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
+    printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    test [what=sql]         = \n"
     printf "    vg                      = valgrind ...\n"
