@@ -16,7 +16,8 @@ helpFunc () {
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
     printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
-    printf "    test [what=sql]         = \n"
+    printf "    test [what=tcases/sqlsql]\n"
+    printf "    pull                    = pushd repo, git pull, popd\n"
     printf "    vg                      = valgrind ...\n"
 }
 
@@ -195,11 +196,18 @@ envFunc () {
 
 #================================================================
 testFunc () {
-    local what=${1:-sql}
+    local scenario=${1:-tcases/sql}
     local path=`pwd`
-    runCmd sed -i -e "s:scenario=.*:scenario=${path}/tcases/${what}:"    ${path}/ttools/CTP/conf/sql.conf
+    runCmd sed -i -e "s:scenario=.*:scenario=${path}/${scenario}:"    ${path}/ttools/CTP/conf/sql.conf
     chkCmd "pushd ttools/CTP"
     runCmd "bin/ctp.sh sql -c ./conf/sql.conf"
+    chkCmd "popd"
+}
+
+#================================================================
+pullFunc () {
+    chkCmd "pushd repo"
+    runCmd "git pull"
     chkCmd "popd"
 }
 
