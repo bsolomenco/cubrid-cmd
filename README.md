@@ -34,6 +34,7 @@ alias inst='cubridcmd inst'
 alias env="source ${CUBRIDCMD} env"
 alias db='cubridcmd db'
 alias test='cubridcmd test'
+alias pull='cubridcmd pull'
 alias vg='cubridcmd vg'
        </pre>
      </td>
@@ -50,6 +51,7 @@ alias i='cubridcmd inst'
 alias e="source ${CUBRIDCMD} env"
 alias d='cubridcmd db'
 alias t='cubridcmd test'
+alias p='cubridcmd pull'
 alias v='cubridcmd vg'
        </pre>
      </td>

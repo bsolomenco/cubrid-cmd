@@ -16,7 +16,7 @@ helpFunc () {
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
     printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
-    printf "    test [what=tcases/sqlsql]\n"
+    printf "    test [scenario=tcases/sql]\n"
     printf "    pull                    = pushd repo, git pull, popd\n"
     printf "    vg                      = valgrind ...\n"
 }
