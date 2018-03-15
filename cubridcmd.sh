@@ -19,6 +19,7 @@ helpFunc () {
     printf "    test [scenario=tcases/sql]\n"
     printf "    pull                    = pushd repo, git pull, popd\n"
     printf "    vg                      = valgrind ...\n"
+    printf "    webconsole              = start webconsole: pushd ttools/CTP , bin/ctp.sh webconsole start , popd\n"
 }
 
 #================================================================
@@ -215,6 +216,13 @@ pullFunc () {
 vgFunc () {
     #chkCmd "valgrind --trace-children=yes --log-file=$HOME/cubrid/vg/broker_%p.txt --xml=yes --xml-file=$HOME/cubrid/vg/broker_%p.xml --leak-check=full --error-limit=no --num-callers=50 $@"
     chkCmd "valgrind --log-file=vg.txt --leak-check=full --trace-children=yes --track-origins=yes --error-limit=no --num-callers=50 $@"
+}
+
+#================================================================
+webconsoleFunc () {
+    chkCmd "pushd ttools/CTP"
+    runCmd "bin/ctp.sh webconsole start"
+    chkCmd "popd"
 }
 
 #================================================================
