@@ -36,6 +36,7 @@ alias db='cubridcmd db'
 alias test='cubridcmd test'
 alias pull='cubridcmd pull'
 alias vg='cubridcmd vg'
+alias webconsole='cubridcmd webconsole'
        </pre>
      </td>
      <td>
@@ -53,6 +54,7 @@ alias d='cubridcmd db'
 alias t='cubridcmd test'
 alias p='cubridcmd pull'
 alias v='cubridcmd vg'
+alias w='cubridcmd webconsole'
        </pre>
      </td>
   </tr>
