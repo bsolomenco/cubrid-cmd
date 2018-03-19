@@ -190,8 +190,8 @@ envFunc () {
     runCmd export CUBRID_DATABASES="`pwd`/db"
     export PATH=${CUBRID}/bin:${PATH}
     runCmd export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUBRID/lib
-    runCmd export JAVA_HOME=/usr/lib/jvm/default-java
-    runCmd export init_path=${CUBRID}/ttools/CTP/shell/init_path
+    #runCmd export JAVA_HOME=/usr/lib/jvm/default-java
+    #runCmd export init_path=${CUBRID}/ttools/CTP/shell/init_path
     runCmd echo ${CUBRID}
 }
 
