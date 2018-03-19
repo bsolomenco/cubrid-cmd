@@ -44,17 +44,17 @@ alias webconsole='cubridcmd webconsole'
 export CUBRIDCMD="/c/cubrid/cmd/cubridcmd.sh"
 
 alias cubridcmd='${CUBRIDCMD}'
-alias c='cubridcmd clone'
-alias g='cubridcmd gen'
-alias b='cubridcmd build'
-alias b2='cubridcmd build2'
-alias i='cubridcmd inst'
+alias c="cubridcmd clone"
+alias g="cubridcmd gen"
+alias b="cubridcmd build"
+alias b2="cubridcmd build2"
+alias i="cubridcmd inst"
 alias e="source ${CUBRIDCMD} env"
-alias d='cubridcmd db'
-alias t='cubridcmd test'
-alias p='cubridcmd pull'
-alias v='cubridcmd vg'
-alias w='cubridcmd webconsole'
+alias d="cubridcmd db"
+alias t="cubridcmd test"
+alias p="cubridcmd pull"
+alias v="cubridcmd vg"
+alias w="cubridcmd webconsole"
        </pre>
      </td>
   </tr>
