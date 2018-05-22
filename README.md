@@ -41,7 +41,8 @@ alias webconsole='cubridcmd webconsole'
      </td>
      <td>
        <pre>
-export CUBRIDCMD="/c/cubrid/cmd/cubridcmd.sh"
+export CUBRIDCMD="${HOME}/cub/cmd/cubridcmd.sh" #Linux
+export CUBRIDCMD="/c/cub/cmd/cubridcmd.sh"   #Windows gitBash
 
 alias cubridcmd='${CUBRIDCMD}'
 alias c="cubridcmd clone"
