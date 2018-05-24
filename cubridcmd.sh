@@ -11,7 +11,7 @@ helpFunc () {
     printf "        cub         = cubrid                            ==> repo\n"
     printf "        tt [prefix=cubrid-test] = cubrid -tools, -tools-internal\n"
     printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
-    printf "    gen [instDir=../inst]   = generate|configure cubrid ==> build\n"
+    printf "    gen [Debug|Release] [instDir=../inst] = generate|configure cubrid ==> build\n"
     printf "    build                   = build cubrid\n"
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
     printf "    env                     = set evironment relative to current folder\n"
@@ -96,7 +96,8 @@ cloneFunc () {
 
 #================================================================
 genFunc () {
-    local instDir=${1:-"../inst"}
+    local type=${1:-"Debug"}
+    local instDir=$2:-"../inst"}
     local generator="???"
     case ${OSTYPE} in
         linux*) #assume Linux
@@ -115,7 +116,7 @@ genFunc () {
     runCmd "rm -rf build"
     chkCmd "mkdir build"
     chkCmd "pushd build"
-    chkCmd "cmake -G ${generator} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${instDir} -DUNIT_TESTS=${unitTest} ../repo"
+    chkCmd "cmake -G ${generator} -DCMAKE_BUILD_TYPE=${type} -DCMAKE_INSTALL_PREFIX=${instDir} -DUNIT_TESTS=${unitTest} ../repo"
     chkCmd "popd"
 }
 
