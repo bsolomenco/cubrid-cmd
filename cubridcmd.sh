@@ -97,7 +97,7 @@ cloneFunc () {
 #================================================================
 genFunc () {
     local type=${1:-"Debug"}
-    local instDir=$2:-"../inst"}
+    local instDir=${2:-"../inst"}
     local generator="???"
     case ${OSTYPE} in
         linux*) #assume Linux
