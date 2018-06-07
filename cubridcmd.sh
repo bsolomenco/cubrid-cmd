@@ -12,7 +12,7 @@ helpFunc () {
     printf "        tt [prefix=cubrid-test] = cubrid -tools, -tools-internal\n"
     printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
     printf "    gen [Debug|Release] [instDir=../inst] = generate|configure cubrid ==> build\n"
-    printf "    build                   = build cubrid\n"
+    printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
     printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
     printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
@@ -122,8 +122,21 @@ genFunc () {
 
 #================================================================
 buildFunc () {
+    local arg=${1:-"-j5"}
     chkCmd "pushd build"
-    chkCmd "cmake --build ."
+    printf "DBG platform/OS: ${OSTYPE}\n"
+    case ${OSTYPE} in
+        linux*) #assume Linux
+            chkCmd "cmake --build . -- ${arg}"
+            ;;
+        msys*) #assume mingw on Windows
+            printf "DBG platform/OS: ${OSTYPE}\n"
+            chkCmd "cmake --build ."
+            ;;
+        *)
+            printf "ERR unknown platform/OS: ${OSTYPE}\n"
+            ;;
+    esac
     chkCmd "popd"
 }
 
