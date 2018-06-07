@@ -99,14 +99,13 @@ genFunc () {
     local type=${1:-"Debug"}
     local instDir=${2:-"../inst"}
     local generator="???"
+    printf "DBG platform/OS: ${OSTYPE}\n"
     case ${OSTYPE} in
         linux*) #assume Linux
-            printf "DBG platform/OS: ${OSTYPE}\n"
-            local generator='"Unix Makefiles"'
+            generator='"Unix Makefiles"'
             ;;
         msys*) #assume mingw on Windows
-            printf "DBG platform/OS: ${OSTYPE}\n"
-            local generator='"Visual Studio 15 2017 Win64"'
+            generator='"Visual Studio 15 2017 Win64"'
             ;;
         *)
             printf "ERR unknown platform/OS: ${OSTYPE}\n"
@@ -121,22 +120,11 @@ genFunc () {
 }
 
 #================================================================
-buildFunc () {
-    local arg=${1:-"-j5"}
+buildFunc () { #use -j5 on Linux to build using 5 CPU cores
+    local arg=${1:-""}
     chkCmd "pushd build"
     printf "DBG platform/OS: ${OSTYPE}\n"
-    case ${OSTYPE} in
-        linux*) #assume Linux
-            chkCmd "cmake --build . -- ${arg}"
-            ;;
-        msys*) #assume mingw on Windows
-            printf "DBG platform/OS: ${OSTYPE}\n"
-            chkCmd "cmake --build ."
-            ;;
-        *)
-            printf "ERR unknown platform/OS: ${OSTYPE}\n"
-            ;;
-    esac
+    chkCmd "cmake --build . -- ${arg}"
     chkCmd "popd"
 }
 
