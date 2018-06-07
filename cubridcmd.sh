@@ -83,10 +83,10 @@ cloneFunc () {
             local prefix="${2:-cubrid-test}"
             runCmd "rm -rf ${prefix}cases"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}cases"
-            runCmd "rm -rf ${prefix}cases-private"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}cases-private"
-            runCmd "rm -rf ${prefix}cases-private-ex"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex ${prefix}cases-private-ex"
+            #runCmd "rm -rf ${prefix}cases-private"
+            #chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}cases-private"
+            #runCmd "rm -rf ${prefix}cases-private-ex"
+            #chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private-ex ${prefix}cases-private-ex"
             ;;
         *)
             printf "ERR unknown repository: ${repo}\nSYNTAX: clone <repository>\n"
