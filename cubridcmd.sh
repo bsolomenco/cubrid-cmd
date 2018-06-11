@@ -121,7 +121,17 @@ genFunc () {
 
 #================================================================
 buildFunc () { #use -j5 on Linux to build using 5 CPU cores
-    local arg=${1:-""}
+    case ${OSTYPE} in
+        linux*) #assume Linux
+            local arg=${1:-"-j7"}
+            ;;
+        msys*) #assume mingw on Windows
+            local arg=${1:-""}
+            ;;
+        *)
+            local arg=${1:-""}
+            ;;
+    esac
     chkCmd "pushd build"
     printf "DBG platform/OS: ${OSTYPE}\n"
     chkCmd "cmake --build . -- ${arg}"
