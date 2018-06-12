@@ -61,9 +61,12 @@ cloneFunc () {
         tt)
             local prefix="${2:-cubrid-test}"
             local port="${3:-"1973"}"
-            local brokerPort=((++port))
-            local haPort=((++port))
-            local wcPort=((++port))
+            ((++port))
+            local brokerPort=${port}
+            ((++port))
+            local haPort=${port}
+            ((++port))
+            local wcPort=${port}
             runCmd "rm -rf ${prefix}tools"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}tools"
             runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                          ${prefix}tools/CTP/conf/webconsole.conf
