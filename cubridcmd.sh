@@ -9,7 +9,7 @@ helpFunc () {
     printf "./cubridcmd.sh [command [args]]\n"
     printf "    clone [repository=cub]\n"
     printf "        cub         = cubrid                            ==> repo\n"
-    printf "        tt [prefix=cubrid-test]  [port=1973] = cubrid -tools, -tools-internal\n"
+    printf "        tt [prefix=cubrid-test] [port=1973] = cubrid -tools, -tools-internal\n"
     printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
     printf "    gen [Debug|Release] [instDir=../inst] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
@@ -61,12 +61,12 @@ cloneFunc () {
         tt)
             local prefix="${2:-cubrid-test}"
             local port="${3:-"1973"}"
-            ((++port))
-            local brokerPort=${port}
-            ((++port))
-            local haPort=${port}
-            ((++port))
-            local wcPort=${port}
+            #((++port))
+            local brokerPort=${port}+1
+            #((++port))
+            local haPort=${port}+2
+            #((++port))
+            local wcPort=${port}+3
             runCmd "rm -rf ${prefix}tools"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}tools"
             runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                          ${prefix}tools/CTP/conf/webconsole.conf
