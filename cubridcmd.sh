@@ -9,7 +9,7 @@ helpFunc () {
     printf "./cubridcmd.sh [command [args]]\n"
     printf "    clone [repository=cub]\n"
     printf "        cub         = cubrid                            ==> repo\n"
-    printf "        tt [prefix=cubrid-test] = cubrid -tools, -tools-internal\n"
+    printf "        tt [prefix=cubrid-test]  [port=1973] = cubrid -tools, -tools-internal\n"
     printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
     printf "    gen [Debug|Release] [instDir=../inst] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
@@ -60,21 +60,25 @@ cloneFunc () {
             ;;
         tt)
             local prefix="${2:-cubrid-test}"
+            local port="${3:-"1973"}"
+            local brokerPort=((++port))
+            local haPort=((++port))
+            local wcPort=((++port))
             runCmd "rm -rf ${prefix}tools"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}tools"
-            runCmd sed -i -e "s:web_port=.*:web_port=1950:"                                 ${prefix}tools/CTP/conf/webconsole.conf
+            runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                          ${prefix}tools/CTP/conf/webconsole.conf
             runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/sql:"    ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id=1973:"                     ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID=1973:"                       ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT=1975:"                           ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID=1975:"             ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id=1976:"                             ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${port}":"                ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${port}":"                  ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/sql.conf
             runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/medium:" ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id=1973:"                     ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID=1973:"                       ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT=1975:"                           ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID=1975:"             ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id=1976:"                             ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${port}":"                ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${port}":"                  ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/medium.conf
 
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
