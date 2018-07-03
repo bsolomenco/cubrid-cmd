@@ -79,6 +79,8 @@ cloneFunc () {
             runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/medium.conf
             runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/medium.conf
             runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/medium.conf
+            
+            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/isolation:" ${prefix}tools/CTP/conf/isolation.conf
 
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
