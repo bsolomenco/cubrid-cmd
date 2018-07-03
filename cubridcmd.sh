@@ -9,11 +9,11 @@ helpFunc () {
     printf "./cubridcmd.sh [command [args]]\n"
     printf "    clone [repository=cub]\n"
     printf "        cub         = cubrid                            ==> repo\n"
-    printf "        tt [prefix=cubrid-test] [port=1973] = cubrid -tools, -tools-internal\n"
+    printf "        tt [prefix=cubrid-test] [port=2000] = cubrid -tools, -tools-internal\n"
     printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
     printf "    gen [Debug|Release] [instDir=../inst] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
-    printf "    inst [port=1973]        = install cubrid, update config files ==> inst\n"
+    printf "    inst [port=2000]        = install cubrid, update config files ==> inst\n"
     printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    test [scenario=tcases/sql]\n"
@@ -60,7 +60,7 @@ cloneFunc () {
             ;;
         tt)
             local prefix="${2:-cubrid-test}"
-            local cubPort="${3:-"1973"}"
+            local cubPort="${3:-"2000"}"
             local haPort=$((${cubPort}+1))
             local brokerPort=$((${cubPort}+2))
             local wcPort=$((${cubPort}+3))
@@ -163,7 +163,7 @@ instFunc () {
     chkCmd "cmake --build . --target install"
     chkCmd "popd"
 
-    local cubPort=${1:-"1973"}      #cubrid base port
+    local cubPort=${1:-"2000"}      #cubrid base port
     local qebPort=$((${cubPort}+1)) #query_editor broker port
     local b1bPort=$((${cubPort}+2)) #%BROKER1 broker port
     local regexp='"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id='"${cubPort}"'/}"'
