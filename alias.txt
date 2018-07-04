@@ -1,3 +1,5 @@
+# USAGE: . ./cmd/alias.txt
+
 export CUBRIDCMD="cmd/cubridcmd.sh"
 
 alias cubridcmd='${CUBRIDCMD}'
