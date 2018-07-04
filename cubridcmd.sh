@@ -215,6 +215,8 @@ envFunc () {
     #runCmd export init_path=${CUBRID}/ttools/CTP/shell/init_path
     export CTP_HOME=${CUBRID}/../ttools/CTP
     runCmd echo ${CTP_HOME}
+    export init_path=/home1/arnia/bsolo/cubrid/ttools/CTP/shell/init_path
+    runCmd echo ${init_path}
 }
 
 #================================================================
