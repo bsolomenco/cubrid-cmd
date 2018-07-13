@@ -59,7 +59,7 @@ cloneFunc () {
             chkCmd "popd"
             ;;
         tt)
-            local prefix="${2:-cubrid-test}"
+            local prefix="${2:-t}"
             local cubPort="${3:-"2000"}"
             local haPort=$((${cubPort}+1))
             local brokerPort=$((${cubPort}+2))
@@ -86,7 +86,7 @@ cloneFunc () {
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
             ;;
         tc)
-            local prefix="${2:-cubrid-test}"
+            local prefix="${2:-t}"
             runCmd "rm -rf ${prefix}cases"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}cases"
             #runCmd "rm -rf ${prefix}cases-private"
@@ -117,7 +117,7 @@ genFunc () {
             printf "ERR unknown platform/OS: ${OSTYPE}\n"
             ;;
     esac
-    local unitTest=${2:-"OFF"}
+    local unitTest=${3:-"OFF"}
     runCmd "rm -rf build"
     chkCmd "mkdir build"
     chkCmd "pushd build"
@@ -126,7 +126,7 @@ genFunc () {
 }
 
 #================================================================
-buildFunc () { #use -j5 on Linux to build using 5 CPU cores
+buildFunc () { #use -j7 on Linux to build using 5 CPU cores
     case ${OSTYPE} in
         linux*) #assume Linux
             local arg=${1:-"-j7"}
