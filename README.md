@@ -1,73 +1,21 @@
 # cubrid-cmd (cubrid helper commands for bash)
 works also on Windows via gitBash or Linux subsystem
 
-1. choose a base folder
+1. choose a base folder (eg. home folder)
 ```
-mkdir ~/cubrid
+cd ~
 ```
-2. clone this repo in the previously created folder
+2. clone this repo in a subfolder
 ```
-git clone https://github.com/bsolomenco/cubrid-cmd ~/cubrid/cmd
+git clone https://github.com/bsolomenco/cubrid-cmd ~/cmd
 ```
-3. make command avalable system-wide (one of the following ways)
-  * 3.1. add to PATH
+3. set session environment (adjust aliases from cmd/env to your needs)
 ```
-PATH += ~/cubrid/cmd
+. cmd/env
 ```
-  * 3.2 make aliase(s) in ~/.bashrc (name them however you like)
-<table>
-  <tr>
-     <th>example 1</th>
-     <th>example 2</th>
-  </tr>
-  <tr>
-     <td>
-       <pre>
-export CUBRIDCMD="/c/cubrid/cmd/cubridcmd.sh"
-
-alias cubridcmd='~/cubrid/cubrid-cmd/cubridcmd.sh'
-alias clone='cubridcmd clone'
-alias gen='cubridcmd gen'
-alias build='cubridcmd build'
-alias build2='cubridcmd build2'
-alias inst='cubridcmd inst'
-alias env="source ${CUBRIDCMD} env"
-alias db='cubridcmd db'
-alias test='cubridcmd test'
-alias pull='cubridcmd pull'
-alias vg='cubridcmd vg'
-alias webconsole='cubridcmd webconsole'
-       </pre>
-     </td>
-     <td>
-       <pre>
-export CUBRIDCMD="${HOME}/cub/cmd/cubridcmd.sh" #Linux
-export CUBRIDCMD="/c/cub/cmd/cubridcmd.sh"   #Windows gitBash
-
-alias cubridcmd='${CUBRIDCMD}'
-alias c="cubridcmd clone"
-alias g="cubridcmd gen"
-alias b="cubridcmd build"
-alias b2="cubridcmd build2"
-alias i="cubridcmd inst"
-alias e="source ${CUBRIDCMD} env"
-alias d="cubridcmd db"
-alias t="cubridcmd test"
-alias p="cubridcmd pull"
-alias v="cubridcmd vg"
-alias w="cubridcmd webconsole"
-       </pre>
-     </td>
-  </tr>
-</table>
-
-
-
 4. use it
 ```
-cd ~/cubrid
 cubridcmd           #show available commands
-
 clone [cub]         #clone a cubrid repo; default cub
 gen                 #generate project for current platform/OS (Linux: "Unix Makefiles", Windows: "Visual Studio 2017 Win64")
 build               #build generated project
@@ -76,6 +24,14 @@ db [name=testdb]    #generate database (default testdb)
 clone tt [prefix]   #clone testtools, testtools-internal
 clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
 ```
+
+mkdir cub
+cd cub
+clone; gen; build; inst
+cd ~
+clone tt t; clone tc t
+test
+
 5. resulting folder structure
 
 <table>
