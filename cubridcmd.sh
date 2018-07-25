@@ -188,9 +188,9 @@ instFunc () {
 #================================================================
 dbFunc () {
     local db=${1:-testdb}
-    runCmd "rm -rf db"
-    runCmd "mkdir db"
-    chkCmd "pushd db"
+    runCmd "rm -rf ${CUBRID_DATABASES}"
+    runCmd "mkdir ${CUBRID_DATABASES}"
+    chkCmd "pushd ${CUBRID_DATABASES}"
     runCmd "cubrid server stop ${db}"
     runCmd "cubrid deletedb ${db}"
     chkCmd "cubrid createdb ${db} en_US"
