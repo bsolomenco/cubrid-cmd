@@ -11,13 +11,13 @@ helpFunc () {
     printf "        cub         = cubrid                            ==> repo\n"
     printf "        tt [prefix=cubrid-test] [port=2000] = cubrid -tools, -tools-internal\n"
     printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
-    printf "    gen [Debug|Release] [instDir=../inst] = generate|configure cubrid ==> build\n"
+    printf "    gen [Debug|Release] [instDir=../cubrid] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
     printf "    inst [port=2000]        = install cubrid, update config files ==> inst\n"
     printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    test [scenario=tcases/sql]\n"
-    printf "    pull                    = pushd repo, git pull, popd\n"
+    printf "    pull [repo=repo]        = pushd repo, git pull, popd\n"
     printf "    vg                      = valgrind ...\n"
     printf "    webconsole              = start webconsole: pushd ttools/CTP , bin/ctp.sh webconsole start , popd\n"
 }
@@ -103,7 +103,7 @@ cloneFunc () {
 #================================================================
 genFunc () {
     local type=${1:-"Debug"}
-    local instDir=${2:-"../inst"}
+    local instDir=${2:-${CUBRID}}
     local generator="???"
     printf "DBG platform/OS: ${OSTYPE}\n"
     case ${OSTYPE} in
@@ -230,8 +230,9 @@ testFunc () {
 }
 
 #================================================================
-pullFunc () {
-    chkCmd "pushd repo"
+pullFunc(){
+    local repo=${1:-repo}
+    chkCmd "pushd ${repo}"
     runCmd "git pull"
     chkCmd "popd"
 }
