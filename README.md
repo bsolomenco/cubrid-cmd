@@ -15,14 +15,7 @@ git clone https://github.com/bsolomenco/cubrid-cmd ~/cmd
 ```
 4. use it
 ```
-cubridcmd           #show available commands
-clone [cub]         #clone a cubrid repo; default cub
-gen                 #generate project for current platform/OS (Linux: "Unix Makefiles", Windows: "Visual Studio 2017 Win64")
-build               #build generated project
-inst [port]         #install and update ports; stop/kill cubrid processes before
-db [name=testdb]    #generate database (default testdb)
-clone tt [prefix]   #clone testtools, testtools-internal
-clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
+cubridcmd           #shows available commands
 
 mkdir cub
 cd cub
@@ -35,10 +28,6 @@ test
 5. resulting folder structure
 
 <table>
-  <tr>
-     <th>default</th>
-     <th>custom (with prefix="t" instead "cubrid-test")</th>
-  </tr>
   <tr>
      <td>
        <pre>
@@ -54,6 +43,14 @@ test
      </td>
      <td>
        <pre>
+         (cubrid-cmd clone)
+         (development version)
+         (cubrid clone)
+         (build folder)
+         (installation)
+         (databases)
+         (cubrid-testtools)
+         (cubrid-testcases)
        </pre>
      </td>
   </tr>
