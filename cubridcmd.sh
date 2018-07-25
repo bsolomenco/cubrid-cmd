@@ -205,9 +205,10 @@ dbFunc () {
 testFunc () {
     local scenario=${1:-tcases/sql}
     local path=`pwd`
-    runCmd sed -i -e "s:scenario=.*:scenario=${path}/${scenario}:"    ${path}/ttools/CTP/conf/sql.conf
-    chkCmd "pushd ttools/CTP"
-    runCmd "bin/ctp.sh sql -c ./conf/sql.conf"
+    local cfg="${CTP_HOME}/conf/sql.conf"
+    runCmd sed -i -e "s:scenario=.*:scenario=${path}/${scenario}:"    ${cfg}
+    chkCmd "pushd ${CTP_HOME}"
+    runCmd "bin/ctp.sh sql -c ${cfg}"
     chkCmd "popd"
 }
 
