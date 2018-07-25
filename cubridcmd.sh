@@ -227,7 +227,7 @@ vgFunc () {
 
 #================================================================
 webconsoleFunc () {
-    chkCmd "pushd ttools/CTP"
+    chkCmd "pushd ${CTP_HOME}"
     runCmd "bin/ctp.sh webconsole start"
     chkCmd "popd"
 }

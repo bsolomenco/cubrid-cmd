@@ -23,7 +23,7 @@ echo "init_path         = ${init_path}"
 
 #export JAVA_HOME=/usr/lib/jvm/default-java
 
-echo "setting aliases: c g b i d t p v"
+echo "setting aliases: c g b i d t p v w"
 alias cubridcmd='${CUBRIDCMD}'
 alias c="cubridcmd clone"
 alias g="cubridcmd gen"
