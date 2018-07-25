@@ -1,25 +1,24 @@
 # USAGE: . cmd/env
 
 export CUBRIDCMD="`pwd`/cmd/cubridcmd.sh"
-echo "CUBRIDCMD = ${CUBRIDCMD}"
+echo "CUBRIDCMD         = ${CUBRIDCMD}"
 
 export CUBRID="`pwd`/cubrid"
-echo "CUBRID = ${CUBRID}"
+echo "CUBRID            = ${CUBRID}"
 
 export CUBRID_CONF="${CUBRID}/conf/cubrid.conf"
-echo "CUBRID_CONF = ${CUBRID_CONF}"
+echo "CUBRID_CONF       = ${CUBRID_CONF}"
 
 export CUBRID_DATABASES="`pwd`/db"
-echo "CUBRID_DATABASES = ${CUBRID_DATABASES}"
+echo "CUBRID_DATABASES  = ${CUBRID_DATABASES}"
 
 export PATH=${CUBRID}/bin:${PATH}
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUBRID/lib
 
-#export JAVA_HOME=/usr/lib/jvm/default-java
-#export init_path=${CUBRID}/ttools/CTP/shell/init_path
-
 export CTP_HOME="`pwd`/ttools/CTP"
-echo "CTP_HOME = ${CTP_HOME}"
+echo "CTP_HOME          = ${CTP_HOME}"
 
 export init_path="${CTP_HOME}/shell/init_path"
-echo "init_path = ${init_path}"
+echo "init_path         = ${init_path}"
+
+#export JAVA_HOME=/usr/lib/jvm/default-java
