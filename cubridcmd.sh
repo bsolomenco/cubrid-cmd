@@ -14,7 +14,6 @@ helpFunc () {
     printf "    gen [Debug|Release] [instDir=../cubrid] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
     printf "    inst [port=2000]        = install cubrid, update config files ==> inst\n"
-    printf "    env                     = set evironment relative to current folder\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    test [scenario=tcases/sql]\n"
     printf "    pull [repo=repo]        = pushd repo, git pull, popd\n"
@@ -200,23 +199,6 @@ dbFunc () {
     #csql -S testdb
     chkCmd "cubrid service status"
     chkCmd "popd"
-}
-
-#================================================================
-envFunc () {
-    #considers current directory as cubrid root path contaning ./inst, ./db
-    runCmd export CUBRID="`pwd`/inst"
-    runCmd echo ${CUBRID}
-    runCmd export CUBRID_CONF="${CUBRID}/conf/cubrid.conf"
-    runCmd export CUBRID_DATABASES="`pwd`/db"
-    export PATH=${CUBRID}/bin:${PATH}
-    runCmd export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUBRID/lib
-    #runCmd export JAVA_HOME=/usr/lib/jvm/default-java
-    #runCmd export init_path=${CUBRID}/ttools/CTP/shell/init_path
-    export CTP_HOME=${CUBRID}/../ttools/CTP
-    runCmd echo ${CTP_HOME}
-    export init_path=/home1/arnia/bsolo/cubrid/ttools/CTP/shell/init_path
-    runCmd echo ${init_path}
 }
 
 #================================================================
