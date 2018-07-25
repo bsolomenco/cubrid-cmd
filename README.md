@@ -23,14 +23,14 @@ inst [port]         #install and update ports; stop/kill cubrid processes before
 db [name=testdb]    #generate database (default testdb)
 clone tt [prefix]   #clone testtools, testtools-internal
 clone tc [prefix]   #clone testcases, testcases-private, testcases-private-ex
-```
 
 mkdir cub
 cd cub
 clone; gen; build; inst
 cd ~
-clone tt t; clone tc t
+clone tt; clone tc
 test
+```
 
 5. resulting folder structure
 
@@ -42,32 +42,18 @@ test
   <tr>
      <td>
        <pre>
-         cubrid
-             cubrid-cmd
+         cmd
+         cub
              repo
              build
-             inst
-             db
-             cubrid-testtools
-             cubrid-testtools-internal
-             cubrid-testcases
-             cubrid-testcases-private
-             cubrid-testcases-private-ex
+         cubrid
+         db
+         ttools
+         tcases
        </pre>
      </td>
      <td>
        <pre>
-         cubrid
-             cmd
-             repo
-             build
-             inst
-             db
-             ttools
-             ttools-internal
-             tcases
-             tcases-private
-             tcases-private-ex
        </pre>
      </td>
   </tr>
