@@ -166,19 +166,19 @@ instFunc () {
     local qebPort=$((${cubPort}+1)) #query_editor broker port
     local b1bPort=$((${cubPort}+2)) #%BROKER1 broker port
     local regexp='"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id='"${cubPort}"'/}"'
-    runCmd sed -i "${regexp}" inst/conf/cubrid.conf
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid.conf
     local regexp='"/^\[broker\]/        , /\[/{s/^MASTER_SHM_ID[ ]*=[ ]*.*/MASTER_SHM_ID='"${cubPort}"'/}"'
-    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
 
     local regexp='"/^\[%query_editor\]/ , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT='"${qebPort}"'/}"'
-    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
     local regexp='"/^\[%query_editor\]/ , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID='"${qebPort}"'/}"'
-    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
 
     local regexp='"/^\[%BROKER1\]/      , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT='"${b1bPort}"'/}"'
-    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
     local regexp='"/^\[%BROKER1\]/      , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID='"${b1bPort}"'/}"'
-    runCmd sed -i "${regexp}" inst/conf/cubrid_broker.conf
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
 
     printf "DBG restore configuration files...\n"
     runCmd "mv cubrid_ha.conf     inst/conf/"
