@@ -1,6 +1,6 @@
 # USAGE: . cmd/env
 
-export CUBRIDCMD="`pwd`/cmd/cubridcmd.sh"
+export CUBRIDCMD="`pwd`/cub-cmd/cubridcmd.sh"
 echo "CUBRIDCMD         = ${CUBRIDCMD}"
 
 export CUBRID="`pwd`/cubrid"
