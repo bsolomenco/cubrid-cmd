@@ -13,7 +13,7 @@ echo "CUBRID            = ${CUBRID}"
 export CUBRID_CONF="${CUBRID}/conf/cubrid.conf"
 echo "CUBRID_CONF       = ${CUBRID_CONF}"
 
-export CUBRID_DATABASES="`pwd`/db"
+export CUBRID_DATABASES="`pwd`/cub-db"
 echo "CUBRID_DATABASES  = ${CUBRID_DATABASES}"
 
 export PATH=${CUBRID}/bin:${PATH}
