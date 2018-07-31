@@ -58,7 +58,7 @@ cloneFunc () {
             chkCmd "popd"
             ;;
         tt)
-            local prefix="${2:-t}"
+            local prefix="${2:-cub-t}"
             local cubPort="${3:-"2000"}"
             local haPort=$((${cubPort}+1))
             local brokerPort=$((${cubPort}+2))
@@ -85,7 +85,7 @@ cloneFunc () {
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
             ;;
         tc)
-            local prefix="${2:-t}"
+            local prefix="${2:-cub-t}"
             runCmd "rm -rf ${prefix}cases"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}cases"
             #runCmd "rm -rf ${prefix}cases-private"
