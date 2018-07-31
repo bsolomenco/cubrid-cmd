@@ -58,40 +58,38 @@ cloneFunc () {
             chkCmd "popd"
             ;;
         tt)
-            local prefix="${2:-cub-t}"
             local cubPort="${3:-"2000"}"
             local haPort=$((${cubPort}+1))
             local brokerPort=$((${cubPort}+2))
             local wcPort=$((${cubPort}+3))
-            runCmd "rm -rf ${prefix}tools"
-            chkCmd "git clone https://github.com/bsolomenco/cubrid-testtools ${prefix}tools"
-            pushd ${prefix}tools
+            runCmd "rm -rf ${CUBRID_TTOOLS}"
+            chkCmd "git clone https://github.com/bsolomenco/cubrid-testtools ${CUBRID_TTOOLS}"
+            chkCmd "pushd ${CUBRID_TTOOLS}"
             chkCmd "git remote add upstream https://github.com/CUBRID/cubrid-testtools"
             chkCmd "git fetch upstream"
             chkCmd "git checkout upstream/master"
-            runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                          ${prefix}tools/CTP/conf/webconsole.conf
-            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/sql:"    ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"             ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"               ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/medium:" ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"             ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"               ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              CTP/conf/webconsole.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${CUBRID_TCASES}cases/sql:" CTP/conf/sql.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/sql.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/sql.conf
+            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/sql.conf
+            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/sql.conf
+            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/sql.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${CUBRID_TCASES}/medium:"   CTP/conf/medium.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/medium.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/medium.conf
+            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/medium.conf
+            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/medium.conf
+            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/medium.conf
             
-            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/isolation:" ${prefix}tools/CTP/conf/isolation.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${CUBRID_TCASES}/isolation:"  CTP/conf/isolation.conf
 
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
             ;;
         tc)
-            local prefix="${2:-cub-t}"
-            runCmd "rm -rf ${prefix}cases"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${prefix}cases"
+            runCmd "rm -rf ${CUBRID_TCASES}"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testcases ${CUBRID_TCASES}"
             #runCmd "rm -rf ${prefix}cases-private"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testcases-private ${prefix}cases-private"
             #runCmd "rm -rf ${prefix}cases-private-ex"
