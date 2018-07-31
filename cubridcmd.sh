@@ -64,7 +64,6 @@ cloneFunc () {
             local brokerPort=$((${cubPort}+2))
             local wcPort=$((${cubPort}+3))
             runCmd "rm -rf ${prefix}tools"
-            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}tools"
             chkCmd "git clone https://github.com/bsolomenco/cubrid-testtools ${prefix}tools"
             pushd ${prefix}tools
             chkCmd "git remote add upstream https://github.com/CUBRID/cubrid-testtools"
