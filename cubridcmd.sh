@@ -215,7 +215,7 @@ testFunc () {
     local scenario=${1:-${CUBRID_TCASES}/sql}
     local path=`pwd`
     local cfg="${CTP_HOME}/conf/sql.conf"
-    runCmd sed -i -e "s:scenario=.*:scenario=${path}/${scenario}:"    ${cfg}
+    runCmd sed -i -e "s:scenario=.*:scenario=${scenario}:"    ${cfg}
     chkCmd "pushd ${CTP_HOME}"
     runCmd "bin/ctp.sh sql -c ${cfg}"
     chkCmd "popd"
