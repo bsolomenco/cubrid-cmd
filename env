@@ -19,7 +19,13 @@ echo "CUBRID_DATABASES  = ${CUBRID_DATABASES}"
 export PATH=${CUBRID}/bin:${PATH}
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUBRID/lib
 
-export CTP_HOME="`pwd`/ttools/CTP"
+export CUBRID_TCASES="`pwd`/cub-tcases"
+echo "CUBRID_TCASES     = ${CUBRID_TCASES}"
+
+export CUBRID_TTOOLS="`pwd`/cub-ttools"
+echo "CUBRID_TTOOLS     = ${CUBRID_TTOOLS}"
+
+export CTP_HOME="${CUBRID_TTOOLS}/CTP"
 echo "CTP_HOME          = ${CTP_HOME}"
 
 export init_path="${CTP_HOME}/shell/init_path"
