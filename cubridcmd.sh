@@ -117,7 +117,9 @@ genFunc () {
             ;;
     esac
     local unitTest=${3:-"OFF"}
-    runCmd "rm -rf build"
+    if [ -d "build" ] ; then
+        runCmd "rm -rf build"
+    fi
     chkCmd "mkdir build"
     chkCmd "pushd build"
     chkCmd "cmake -G ${generator} -DCMAKE_BUILD_TYPE=${type} -DCMAKE_INSTALL_PREFIX=${instDir} -DUNIT_TESTS=${unitTest} ../repo"
