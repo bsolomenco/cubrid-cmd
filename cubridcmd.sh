@@ -86,6 +86,8 @@ cloneFunc () {
 
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
+            
+            chkCmd "popd"
             ;;
         tc)
             runCmd "rm -rf ${CUBRID_TCASES}"
@@ -210,7 +212,7 @@ dbFunc () {
 
 #================================================================
 testFunc () {
-    local scenario=${1:-tcases/sql}
+    local scenario=${1:-${CUBRID_TCASES}/sql}
     local path=`pwd`
     local cfg="${CTP_HOME}/conf/sql.conf"
     runCmd sed -i -e "s:scenario=.*:scenario=${path}/${scenario}:"    ${cfg}
