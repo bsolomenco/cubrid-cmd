@@ -65,16 +65,21 @@ cloneFunc () {
             local wcPort=$((${cubPort}+3))
             runCmd "rm -rf ${prefix}tools"
             chkCmd "git clone https://github.com/CUBRID/cubrid-testtools ${prefix}tools"
+            chkCmd "git clone https://github.com/bsolomenco/cubrid-testtools ${prefix}tools"
+            pushd ${prefix}tools
+            chkCmd "git remote add upstream https://github.com/CUBRID/cubrid-testtools"
+            chkCmd "git fetch upstream"
+            chkCmd "git checkout upstream/master"
             runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                          ${prefix}tools/CTP/conf/webconsole.conf
             runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/sql:"    ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                ${prefix}tools/CTP/conf/sql.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                  ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"             ${prefix}tools/CTP/conf/sql.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"               ${prefix}tools/CTP/conf/sql.conf
             runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/sql.conf
             runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/sql.conf
             runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/sql.conf
             runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${prefix}cases/medium:" ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                ${prefix}tools/CTP/conf/medium.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                  ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"             ${prefix}tools/CTP/conf/medium.conf
+            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"               ${prefix}tools/CTP/conf/medium.conf
             runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                ${prefix}tools/CTP/conf/medium.conf
             runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"  ${prefix}tools/CTP/conf/medium.conf
             runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                      ${prefix}tools/CTP/conf/medium.conf
