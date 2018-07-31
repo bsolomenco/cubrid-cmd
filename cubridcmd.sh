@@ -69,20 +69,20 @@ cloneFunc () {
             chkCmd "git fetch upstream"
             chkCmd "git checkout upstream/master"
             runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              CTP/conf/webconsole.conf
-            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${CUBRID_TCASES}cases/sql:" CTP/conf/sql.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/sql:"                     CTP/conf/sql.conf
             runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/sql.conf
             runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/sql.conf
             runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/sql.conf
             runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/sql.conf
             runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/sql.conf
-            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${CUBRID_TCASES}/medium:"   CTP/conf/medium.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/medium:"                  CTP/conf/medium.conf
             runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/medium.conf
             runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/medium.conf
             runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/medium.conf
             runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/medium.conf
             runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/medium.conf
             
-            runCmd sed -i -e "s:scenario=.*:scenario=${HOME}/cubrid/${CUBRID_TCASES}/isolation:"  CTP/conf/isolation.conf
+            runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/isolation:"               CTP/conf/isolation.conf
 
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
