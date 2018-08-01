@@ -36,7 +36,8 @@ echo "VALGRIND_HOME     = ${VALGRIND_HOME}"
 
 #export JAVA_HOME=/usr/lib/jvm/default-java
 
-echo "setting aliases: c g b i d t p v w"
+echo "setting aliases: c g b i d t tv p v w"
+set -x
 alias cubridcmd='${CUBRIDCMD}'
 alias c="cubridcmd clone"
 alias g="cubridcmd gen"
