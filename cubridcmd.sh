@@ -96,23 +96,23 @@ cfgFunc () {
     local wcPort=$((${cubPort}+3))      #webconsole port
     local haPort=$((${cubPort}+4))      #ha port
     
-    #CTP/conf/*.conf
-    runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              CTP/conf/webconsole.conf
-    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/sql:"                     CTP/conf/sql.conf
-    runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/sql.conf
-    runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/sql.conf
-    runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/sql.conf
-    runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/sql.conf
-    runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/sql.conf
-    runCmd sed -i -e "s:enable_memory_leak=yes:enable_memory_leak=no:"                  CTP/conf/sql.conf       #restore if changed
-    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/medium:"                  CTP/conf/medium.conf
-    runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/medium.conf
-    runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/medium.conf
-    runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/medium.conf
-    runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/medium.conf
-    runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/medium.conf
+    #${CTP_HOME}/conf/*.conf
+    runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              ${CTP_HOME}/conf/webconsole.conf
+    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/sql:"                     ${CTP_HOME}/conf/sql.conf
+    runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 ${CTP_HOME}/conf/sql.conf
+    runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   ${CTP_HOME}/conf/sql.conf
+    runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    ${CTP_HOME}/conf/sql.conf
+    runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      ${CTP_HOME}/conf/sql.conf
+    runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          ${CTP_HOME}/conf/sql.conf
+    runCmd sed -i -e "s:enable_memory_leak=yes:enable_memory_leak=no:"                  ${CTP_HOME}/conf/sql.conf       #restore if changed
+    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/medium:"                  ${CTP_HOME}/conf/medium.conf
+    runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 ${CTP_HOME}/conf/medium.conf
+    runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   ${CTP_HOME}/conf/medium.conf
+    runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    ${CTP_HOME}/conf/medium.conf
+    runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      ${CTP_HOME}/conf/medium.conf
+    runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          ${CTP_HOME}/conf/medium.conf
 
-    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/isolation:"               CTP/conf/isolation.conf
+    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/isolation:"               ${CTP_HOME}/conf/isolation.conf
 
     #$CUBRID/conf/*.conf
     local regexp='"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id='"${cubPort}"'/}"'
