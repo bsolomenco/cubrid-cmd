@@ -51,3 +51,4 @@ alias tv="cubridcmd testvg"
 alias p="cubridcmd pull"
 alias v="cubridcmd vg"
 alias w="cubridcmd webconsole"
+set +x
