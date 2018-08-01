@@ -223,9 +223,21 @@ dbFunc () {
 #================================================================
 testFunc () {
     local scenario=${1:-${CUBRID_TCASES}/sql}
-    local path=`pwd`
     local cfg="${CTP_HOME}/conf/sql.conf"
-    runCmd sed -i -e "s:scenario=.*:scenario=${scenario}:"    ${cfg}
+    runCmd sed -i -e "s:enable_memory_leak=yes:enable_memory_leak=no:"          ${cfg}
+    runCmd sed -i -e "s:scenario=.*:scenario=${scenario}:"                      ${cfg}
+    chkCmd "pushd ${CTP_HOME}"
+    runCmd "bin/ctp.sh sql -c ${cfg}"
+    chkCmd "popd"
+}
+
+#================================================================
+testvgFunc(){
+    local scenario=${1:-${CUBRID_TCASES}/sql}
+    local cfg="${CTP_HOME}/conf/sql.conf"
+    runCmd sed -i -e "s:enable_memory_leak=no:enable_memory_leak=yes:"          ${cfg}
+    runCmd sed -i -e "s:java_stored_procedure=yes:java_stored_procedure=no:"    ${cfg}
+    runCmd sed -i -e "s:scenario=.*:scenario=${scenario}:"                      ${cfg}
     chkCmd "pushd ${CTP_HOME}"
     runCmd "bin/ctp.sh sql -c ${cfg}"
     chkCmd "popd"
