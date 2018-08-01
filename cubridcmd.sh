@@ -8,12 +8,13 @@
 helpFunc () {
     printf "./cubridcmd.sh [command [args]]\n"
     printf "    clone [repository=cub]\n"
-    printf "        cub         = cubrid                            ==> repo\n"
-    printf "        tt [prefix=cubrid-test] [port=2000] = cubrid -tools, -tools-internal\n"
-    printf "        tc [prefix=cubrid-test] = cubrid -cases, -cases-private, -cases-private-ex\n"
+    printf "        cub         = cubrid                            ==> ./repo\n"
+    printf "        tt          = cubrid-testtools                  ==> ./cub-ttools\n"
+    printf "        tt          = cubrid-testcases                  ==> ./cub-tcases\n"
+    printf "    cfg [port=2000]     = update config files (ports, paths)\n"
     printf "    gen [Debug|Release] [instDir=../cubrid] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
-    printf "    inst [port=2000]        = install cubrid, update config files ==> inst\n"
+    printf "    inst                    = install cubrid files ==> CUBRID\n"
     printf "    db [database=testdb]    = cubrid createdb testdb    ==> db\n"
     printf "    test [scenario=tcases/sql]\n"
     printf "    pull [repo=repo]        = pushd repo, git pull, popd\n"
@@ -68,25 +69,8 @@ cloneFunc () {
             chkCmd "git remote add upstream https://github.com/CUBRID/cubrid-testtools"
             chkCmd "git fetch upstream"
             chkCmd "git checkout upstream/master"
-            runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              CTP/conf/webconsole.conf
-            runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/sql:"                     CTP/conf/sql.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/sql.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/sql.conf
-            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/sql.conf
-            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/sql.conf
-            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/sql.conf
-            runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/medium:"                  CTP/conf/medium.conf
-            runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/medium.conf
-            runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/medium.conf
-            runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/medium.conf
-            runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/medium.conf
-            runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/medium.conf
-            
-            runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/isolation:"               CTP/conf/isolation.conf
-
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
-            
             chkCmd "popd"
             ;;
         tc)
@@ -101,6 +85,53 @@ cloneFunc () {
             printf "ERR unknown repository: ${repo}\nSYNTAX: clone <repository>\n"
             ;;
     esac
+}
+
+#================================================================
+cfgFunc () {
+    #1st arg is the base port (default 2000)
+    local cubPort=${1:-"2000"}          #cubrid base port
+    local qebPort=$((${cubPort}+1))     #query_editor broker port
+    local brokerPort=$((${cubPort}+2))  #broker port
+    local wcPort=$((${cubPort}+3))      #webconsole port
+    local haPort=$((${cubPort}+4))      #ha port
+    
+    #CTP/conf/*.conf
+    runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              CTP/conf/webconsole.conf
+    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/sql:"                     CTP/conf/sql.conf
+    runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/sql.conf
+    runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/sql.conf
+    runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/sql.conf
+    runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/sql.conf
+    runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/sql.conf
+    runCmd sed -i -e "s:enable_memory_leak=yes:enable_memory_leak=no:"                  CTP/conf/sql.conf       #restore if changed
+    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/medium:"                  CTP/conf/medium.conf
+    runCmd sed -i -e "s:cubrid_port_id=.*:cubrid_port_id="${cubPort}":"                 CTP/conf/medium.conf
+    runCmd sed -i -e "s:MASTER_SHM_ID=.*:MASTER_SHM_ID="${cubPort}":"                   CTP/conf/medium.conf
+    runCmd sed -i -e "s:BROKER_PORT=.*:BROKER_PORT="${brokerPort}":"                    CTP/conf/medium.conf
+    runCmd sed -i -e "s:APPL_SERVER_SHM_ID=.*:APPL_SERVER_SHM_ID="${brokerPort}":"      CTP/conf/medium.conf
+    runCmd sed -i -e "s:ha_port_id=.*:ha_port_id="${haPort}":"                          CTP/conf/medium.conf
+
+    runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/isolation:"               CTP/conf/isolation.conf
+
+    #$CUBRID/conf/*.conf
+    local regexp='"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id='"${cubPort}"'/}"'
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid.conf
+    local regexp='"/^\[broker\]/        , /\[/{s/^MASTER_SHM_ID[ ]*=[ ]*.*/MASTER_SHM_ID='"${cubPort}"'/}"'
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
+
+    local regexp='"/^\[%query_editor\]/ , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT='"${qebPort}"'/}"'
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
+    local regexp='"/^\[%query_editor\]/ , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID='"${qebPort}"'/}"'
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
+
+    local regexp='"/^\[%BROKER1\]/      , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT='"${brokerPort}"'/}"'
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
+    local regexp='"/^\[%BROKER1\]/      , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID='"${brokerPort}"'/}"'
+    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
+
+    #printf "DBG restore configuration files...\n"
+    #runCmd "mv cubrid_ha.conf     inst/conf/"
 }
 
 #================================================================
@@ -167,27 +198,6 @@ instFunc () {
     chkCmd "pushd build"
     chkCmd "cmake --build . --target install"
     chkCmd "popd"
-
-    local cubPort=${1:-"2000"}      #cubrid base port
-    local qebPort=$((${cubPort}+1)) #query_editor broker port
-    local b1bPort=$((${cubPort}+2)) #%BROKER1 broker port
-    local regexp='"/^\[common\]/        , /\[/{s/^cubrid_port_id[ ]*=[ ]*.*/cubrid_port_id='"${cubPort}"'/}"'
-    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid.conf
-    local regexp='"/^\[broker\]/        , /\[/{s/^MASTER_SHM_ID[ ]*=[ ]*.*/MASTER_SHM_ID='"${cubPort}"'/}"'
-    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
-
-    local regexp='"/^\[%query_editor\]/ , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT='"${qebPort}"'/}"'
-    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
-    local regexp='"/^\[%query_editor\]/ , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID='"${qebPort}"'/}"'
-    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
-
-    local regexp='"/^\[%BROKER1\]/      , /\[/{s/^BROKER_PORT[ ]*=[ ]*.*/BROKER_PORT='"${b1bPort}"'/}"'
-    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
-    local regexp='"/^\[%BROKER1\]/      , /\[/{s/^APPL_SERVER_SHM_ID[ ]*=[ ]*.*/APPL_SERVER_SHM_ID='"${b1bPort}"'/}"'
-    runCmd sed -i "${regexp}" ${CUBRID}/conf/cubrid_broker.conf
-
-    printf "DBG restore configuration files...\n"
-    runCmd "mv cubrid_ha.conf     inst/conf/"
 }
 
 #================================================================
