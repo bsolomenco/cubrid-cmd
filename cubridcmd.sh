@@ -10,7 +10,8 @@ helpFunc () {
     printf "    clone [repository=cub]\n"
     printf "        cub         = cubrid                            ==> ./repo\n"
     printf "        tt          = cubrid-testtools                  ==> ./cub-ttools\n"
-    printf "        tt          = cubrid-testcases                  ==> ./cub-tcases\n"
+    printf "        tti         = cubrid-testtools-internal         ==> ./cub-ttoolsi\n"
+    printf "        tc          = cubrid-testcases                  ==> ./cub-tcases\n"
     printf "    cfg [port=2000]     = update config files (ports, paths)\n"
     printf "    gen [Debug|Release] [instDir=../cubrid] = generate|configure cubrid ==> build\n"
     printf "    build [arg=-j5]         = build cubrid [using 5 cores]\n"
@@ -59,10 +60,6 @@ cloneFunc () {
             chkCmd "popd"
             ;;
         tt)
-            local cubPort="${3:-"2000"}"
-            local haPort=$((${cubPort}+1))
-            local brokerPort=$((${cubPort}+2))
-            local wcPort=$((${cubPort}+3))
             runCmd "rm -rf ${CUBRID_TTOOLS}"
             chkCmd "git clone https://github.com/bsolomenco/cubrid-testtools ${CUBRID_TTOOLS}"
             chkCmd "pushd ${CUBRID_TTOOLS}"
@@ -71,6 +68,16 @@ cloneFunc () {
             chkCmd "git checkout upstream/master"
             #runCmd "rm -rf ${prefix}tools-internal"
             #chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${prefix}tools-internal"
+            chkCmd "popd"
+            ;;
+        tti)
+            runCmd "rm -rf ${CUBRID_TTOOLS}i"
+            chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${CUBRID_TTOOLS}i"
+            chkCmd "pushd ${CUBRID_TTOOLS}i/valgrind"
+            chkCmd "./autogen.sh"
+            chkCmd "./configure --prefix=~/cub-vg"
+            chkCmd "make"
+            chkCmd "make install"
             chkCmd "popd"
             ;;
         tc)

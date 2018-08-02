@@ -31,7 +31,8 @@ echo "CTP_HOME          = ${CTP_HOME}"
 export init_path="${CTP_HOME}/shell/init_path"
 echo "init_path         = ${init_path}"
 
-export VALGRIND_HOME="/opt/rh/devtoolset-6/root/usr"
+#export VALGRIND_HOME="/opt/rh/devtoolset-6/root/usr"
+export VALGRIND_HOME="~/cub-vg"
 echo "VALGRIND_HOME     = ${VALGRIND_HOME}"
 
 #export JAVA_HOME=/usr/lib/jvm/default-java
