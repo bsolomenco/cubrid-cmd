@@ -75,7 +75,7 @@ cloneFunc () {
             chkCmd "git clone https://github.com/CUBRID/cubrid-testtools-internal ${CUBRID_TTOOLS}i"
             chkCmd "pushd ${CUBRID_TTOOLS}i/valgrind"
             chkCmd "./autogen.sh"
-            chkCmd "./configure --prefix=~/cub-vg"
+            chkCmd "./configure --prefix=${HOME}/cub-vg"
             chkCmd "make"
             chkCmd "make install"
             chkCmd "popd"
