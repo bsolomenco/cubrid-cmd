@@ -241,8 +241,8 @@ testFunc () {
 #================================================================
 testvgFunc(){
     local scenario=${1:-${CUBRID_TCASES}/sql}
-    local valgrind=${2:-${VALGRIND_PATH}
-    runCmd "export VALGRIND_PATH=${valgrind}"
+    local valgrindPath=${2:-${VALGRIND_PATH}}
+    runCmd "export VALGRIND_PATH=${valgrindPath}"
     echo "VALGRIND_PATH=${VALGRIND_PATH}"
     local cfg="${CTP_HOME}/conf/sql.conf"
     runCmd sed -i -e "s:enable_memory_leak=no:enable_memory_leak=yes:"          ${cfg}
