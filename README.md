@@ -7,11 +7,11 @@ cd ~
 ```
 2. clone this repo in a subfolder
 ```
-git clone https://github.com/bsolomenco/cubrid-cmd ~/cmd
+git clone https://github.com/bsolomenco/cubrid-cmd ~/cub-cmd
 ```
 3. set session environment (adjust aliases from cmd/env to your needs)
 ```
-. cmd/env
+. cub-cmd/env
 ```
 4. use it
 ```
