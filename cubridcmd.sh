@@ -50,12 +50,13 @@ cloneFunc () {
     case ${repo} in
         cub)
             runCmd "rm -rf repo"
-            chkCmd "git clone https://github.com/bsolomenco/cubrid repo"
+            #chkCmd "git clone https://github.com/bsolomenco/cubrid repo"
+            chkCmd "git clone git@github.com:apsisware/tesseractdb.git repo"
             chkCmd "pushd repo"
-            chkCmd "git remote add upstream https://github.com/CUBRID/cubrid"
-            chkCmd "git remote -v"
-            chkCmd "git fetch"
-            chkCmd "git fetch upstream"
+            #chkCmd "git remote add upstream https://github.com/CUBRID/cubrid"
+            #chkCmd "git remote -v"
+            #chkCmd "git fetch"
+            #chkCmd "git fetch upstream"
             #chkCmd "git merge upstream/develop"
             chkCmd "popd"
             ;;
@@ -169,10 +170,10 @@ genFunc () {
 }
 
 #================================================================
-buildFunc () { #use -j7 on Linux to build using 5 CPU cores
+buildFunc () { #use -j8 on Linux to build using 8 CPU cores
     case ${OSTYPE} in
         linux*) #assume Linux
-            local arg=${1:-"-j7"}
+            local arg=${1:-"-j8"}
             ;;
         msys*) #assume mingw on Windows
             local arg=${1:-""}

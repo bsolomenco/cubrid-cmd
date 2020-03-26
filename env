@@ -4,7 +4,7 @@
 alias l=' ls  -lpF --time-style=long-iso --color=auto --group-directories-first --indicator-style=slash'
 alias ll='ls -alpF --time-style=long-iso --color=auto --group-directories-first --indicator-style=slash'
 
-export CUBRIDCMD="`pwd`/cub-cmd/cubridcmd.sh"
+export CUBRIDCMD="`pwd`/cmd/cubridcmd.sh"
 echo "CUBRIDCMD         = ${CUBRIDCMD}"
 
 export CUBRID="`pwd`/cubrid"
