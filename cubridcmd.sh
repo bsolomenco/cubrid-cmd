@@ -51,7 +51,7 @@ cloneFunc () {
         cub)
             runCmd "rm -rf repo"
             #chkCmd "git clone https://github.com/bsolomenco/cubrid repo"
-            chkCmd "git clone git@github.com:apsisware/tesseractdb.git repo"
+            chkCmd "git clone git@github.com.WORK:apsisware/tesseractdb.git repo"
             chkCmd "pushd repo"
             #chkCmd "git remote add upstream https://github.com/CUBRID/cubrid"
             #chkCmd "git remote -v"
