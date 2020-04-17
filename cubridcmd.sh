@@ -152,8 +152,8 @@ genFunc () {
         linux*) #assume Linux
             generator='"Unix Makefiles"'
             ;;
-        msys*) #assume mingw on Windows
-            generator='"Visual Studio 15 2017 Win64"'
+        msys*) #assume mingw or gitBash on Windows
+            generator='"Visual Studio 16 2019"'
             ;;
         *)
             printf "ERR unknown platform/OS: ${OSTYPE}\n"
