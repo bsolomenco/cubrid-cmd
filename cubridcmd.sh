@@ -103,7 +103,7 @@ cfgFunc () {
     local brokerPort=$((${cubPort}+2))  #broker port
     local wcPort=$((${cubPort}+3))      #webconsole port
     local haPort=$((${cubPort}+4))      #ha port
-    
+
     #${CTP_HOME}/conf/*.conf
     runCmd sed -i -e "s:web_port=.*:web_port="${wcPort}":"                              ${CTP_HOME}/conf/webconsole.conf
     runCmd sed -i -e "s:scenario=.*:scenario=${CUBRID_TCASES}/sql:"                     ${CTP_HOME}/conf/sql.conf
@@ -200,8 +200,8 @@ instFunc () {
     runCmd "cubrid service stop"
     runCmd "cubrid server stop testdb"
 
-    printf "DBG backup configuration files...\n"
-    runCmd "cp inst/conf/cubrid_ha.conf         ."
+    #printf "DBG backup configuration files...\n"
+    #runCmd "cp inst/conf/cubrid_ha.conf         ."
 
     chkCmd "pushd build"
     chkCmd "cmake --build . --target install"
